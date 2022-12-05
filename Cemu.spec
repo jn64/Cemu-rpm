@@ -48,7 +48,17 @@ BuildRequires:  rapidjson-devel
 BuildRequires:  vulkan-headers
 BuildRequires:  wxGTK-devel
 
-Requires:       
+Requires:       boost-atomic
+Requires:       boost-filesystem
+Requires:       boost-nowide
+Requires:       boost-program-options
+Requires:       cubeb
+Requires:       SDL2
+Requires:       wxGTK
+Requires:       wxGTK-gl
+
+Requires:       hicolor-icon-theme
+Requires:       shared-mime-info
 
 %description
 Cemu is a cross-platform emulator for the Nintendo Wii U game console.
