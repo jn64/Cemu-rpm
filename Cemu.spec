@@ -3,6 +3,8 @@
 # <https://github.com/cemu-project/Cemu/commit/c1afa4cad0e6092325ae796f9b0c9ed9a686be0f>
 %global commit c1afa4cad0e6092325ae796f9b0c9ed9a686be0f
 
+%global toolchain clang
+
 %forgemeta
 
 Name:           Cemu
@@ -14,7 +16,38 @@ License:        MPLv2.0
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
-BuildRequires:  
+BuildRequires:  clang
+BuildRequires:  cmake
+BuildRequires:  cubeb-devel
+BuildRequires:  freeglut-devel
+#BuildRequires:  git
+BuildRequires:  gtk3-devel
+BuildRequires:  kernel-headers
+BuildRequires:  libgcrypt-devel
+BuildRequires:  libsecret-devel
+BuildRequires:  nasm
+BuildRequires:  ninja-build
+BuildRequires:  perl-core
+# Only needed for vcpkg build
+#BuildRequires:  systemd-devel
+BuildRequires:  zlib-devel
+
+# Upstream uses vcpkg for these deps:
+BuildRequires:  SDL2-devel
+BuildRequires:  boost-devel
+BuildRequires:  fmt-devel
+BuildRequires:  glm-devel
+BuildRequires:  glslang-devel
+BuildRequires:  libcurl-devel
+BuildRequires:  libzip-devel
+BuildRequires:  libzip-tools
+BuildRequires:  libzstd-devel
+BuildRequires:  openssl-devel
+BuildRequires:  pugixml-devel
+BuildRequires:  rapidjson-devel
+BuildRequires:  vulkan-headers
+BuildRequires:  wxGTK-devel
+
 Requires:       
 
 %description
