@@ -32,6 +32,7 @@ Source2:        https://github.com/Exzap/%{zarchive_name}/archive/%{zarchive_com
 # <https://github.com/KhronosGroup/glslang/issues/2570>
 Source3:        glslangConfig.cmake
 Patch0:         00-Cemu-fmt.patch
+Patch1:         01-Cemu-no-strip-debug.patch
 
 BuildRequires:  clang
 BuildRequires:  cmake
@@ -101,15 +102,23 @@ mv dependencies/%{zarchive_name}-%{zarchive_commit} dependencies/%{zarchive_name
 
 # Add missing glslang CMake file
 #cp -v %%{SOURCE3} /usr/lib64/cmake
-# TODO Apply Patch0
+%patch0
+%patch1
 
 %build
+glslang_DIR=%{_libdir}/cmake
+export glslang_DIR
+
+# BUILD_SHARED_LIBS=OFF is to fix this error:
+#    At least one of these targets is not a STATIC_LIBRARY. Cyclic dependencies are allowed only among static libraries.
 %cmake \
     -DCMAKE_BUILD_TYPE=release \
     -DENABLE_VCPKG=OFF \
     -DENABLE_DISCORD_RPC=OFF \
     -DEXPERIMENTAL_VERSION=999999 \
-    -DPORTABLE=OFF
+    -DPORTABLE=OFF \
+    -DBUILD_SHARED_LIBS=OFF
+
 %cmake_build
 
 %install
