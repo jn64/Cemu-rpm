@@ -1,7 +1,19 @@
+# <https://github.com/cemu-project/Cemu/tree/445b0afa9545c9ae7ed30f025bb2f3da2ee1a5f9>
 %global forgeurl https://github.com/cemu-project/Cemu
-# <https://github.com/cemu-project/Cemu/commit/445b0afa9545c9ae7ed30f025bb2f3da2ee1a5f9>
 %global commit 445b0afa9545c9ae7ed30f025bb2f3da2ee1a5f9
 %forgemeta
+
+# imgui submodule
+# <https://github.com/ocornut/imgui/tree/8a44c31c95c8e0217f6e1fc814cbbbcca4981f14>
+%global imgui_name imgui
+%global imgui_url https://github.com/ocornut/%{imgui_name}
+%global imgui_commit 8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
+
+# ZArchive submodule
+# <https://github.com/Exzap/ZArchive/tree/d2c717730092c7bf8cbb033b12fd4001b7c4d932>
+%global zarchive_name ZArchive
+%global zarchive_url https://github.com/Exzap/%{zarchive_name}
+%global zarchive_commit d2c717730092c7bf8cbb033b12fd4001b7c4d932
 
 %global toolchain clang
 %global rdns info.cemu.Cemu
@@ -14,9 +26,11 @@ Summary:        Wii U emulator
 License:        MPLv2.0
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+Source1:        https://github.com/ocornut/%{imgui_name}/archive/%{imgui_commit}/%{imgui_name}-%{imgui_commit}.tar.gz
+Source2:        https://github.com/Exzap/%{zarchive_name}/archive/%{zarchive_commit}/%{zarchive_name}-%{zarchive_commit}.tar.gz
 # Workaround for missing glslang CMake file
 # <https://github.com/KhronosGroup/glslang/issues/2570>
-Source1:        glslangConfig.cmake
+Source3:        glslangConfig.cmake
 Patch0:         00-Cemu-fmt.patch
 
 BuildRequires:  clang
@@ -77,14 +91,16 @@ compatibility, convenience, and usability.
 %prep
 %forgesetup
 
-rmdir dependencies/cubeb
-rmdir dependencies/vcpkg
-rmdir dependencies/Vulkan-Headers
+tar -xzf %{SOURCE1} -C dependencies
+rm -rf dependencies/%{imgui_name}
+mv dependencies/%{imgui_name}-%{imgui_commit} dependencies/%{imgui_name}
+
+tar -xzf %{SOURCE2} -C dependencies
+rm -rf dependencies/%{zarchive_name}
+mv dependencies/%{zarchive_name}-%{zarchive_commit} dependencies/%{zarchive_name}
 
 # Add missing glslang CMake file
-#mv -v glslangConfig.cmake %%{_libdir}/cmake
-# TODO figure out how to set the envvar glslang_DIR=/usr/lib64/cmake before the cmake command
-
+#cp -v %%{SOURCE3} /usr/lib64/cmake
 # TODO Apply Patch0
 
 %build
