@@ -17,7 +17,7 @@ Source0:        %{forgesource}
 # Workaround for missing glslang CMake file
 # <https://github.com/KhronosGroup/glslang/issues/2570>
 Source1:        glslangConfig.cmake
-Patch0:         Cemu-fmt.patch
+Patch0:         00-Cemu-fmt.patch
 
 BuildRequires:  clang
 BuildRequires:  cmake

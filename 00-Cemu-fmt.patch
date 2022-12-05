@@ -1,5 +1,5 @@
---- i/src/Common/precompiled.h
-+++ w/src/Common/precompiled.h
+--- src/Common/precompiled.h
++++ src/Common/precompiled.h
 @@ -5,7 +5,6 @@
  #include "version.h"
  #include "platform.h"
