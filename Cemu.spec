@@ -14,6 +14,10 @@ Summary:        Wii U emulator
 License:        MPLv2.0
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+# Workaround for missing glslang CMake file
+# <https://github.com/KhronosGroup/glslang/issues/2570>
+Source1:        glslangConfig.cmake
+Patch0:         Cemu-fmt.patch
 
 BuildRequires:  clang
 BuildRequires:  cmake
@@ -73,11 +77,24 @@ compatibility, convenience, and usability.
 %prep
 %forgesetup
 
+rmdir dependencies/cubeb
+rmdir dependencies/vcpkg
+rmdir dependencies/Vulkan-Headers
+
+# Add missing glslang CMake file
+#mv -v glslangConfig.cmake %%{_libdir}/cmake
+# TODO figure out how to set the envvar glslang_DIR=/usr/lib64/cmake before the cmake command
+
+# TODO Apply Patch0
 
 %build
-%configure
-%make_build
-
+%cmake \
+    -DCMAKE_BUILD_TYPE=release \
+    -DENABLE_VCPKG=OFF \
+    -DENABLE_DISCORD_RPC=OFF \
+    -DEXPERIMENTAL_VERSION=999999 \
+    -DPORTABLE=OFF
+%cmake_build
 
 %install
 # Install bin/Cemu_release to /usr/bin/Cemu
