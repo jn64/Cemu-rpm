@@ -121,14 +121,22 @@ cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/gameProfiles bin/
 install -dm 0755 %{buildroot}%{_datadir}/%{name}/resources
 cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/resources bin/resources/*
 
+install -Dpm 0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps dist/linux/%{rdns}.png
+install -Dpm 0644 -t %{buildroot}%{_metainfodir} dist/linux/%{rdns}.metainfo.xml
+
+# 1. Cemu doesn't officially support Wayland
+#    GDK_BACKEND=x11 required for now
+#    See <https://github.com/cemu-project/Cemu/issues/92#issue-1353130696>
+# 2. PrefersNonDefaultGPU will use the (presumably better) dGPU when
+#    both iGPU and dGPU are present, depending on DE support.
+#    See <https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#key-prefersnondefaultgpu>
 desktop-file-install \
     --dir=%{buildroot}%{_datadir}/applications \
+    --set-key=Exec \
+    --set-value='env GDK_BACKEND=x11 %{name}' \
     --set-key=PrefersNonDefaultGPU \
     --set-value=true \
     dist/linux/%{rdns}.desktop
-
-install -Dpm 0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps dist/linux/%{rdns}.png
-install -Dpm 0644 -t %{buildroot}%{_metainfodir} dist/linux/%{rdns}.metainfo.xml
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metainfo.xml
