@@ -84,7 +84,7 @@ Cemu is actively developed with new features and fixes to increase
 compatibility, convenience, and usability.
 
 %prep
-%forgeautosetup
+%forgesetup
 
 # Remove dependencies/imgui, and extract imgui from the tarball to replace it
 rm -rf dependencies/%{imgui_name}
@@ -95,6 +95,9 @@ mv dependencies/%{imgui_name}-%{imgui_commit} dependencies/%{imgui_name}
 rm -rf dependencies/%{zarchive_name}
 tar -xzf %{SOURCE2} -C dependencies
 mv dependencies/%{zarchive_name}-%{zarchive_commit} dependencies/%{zarchive_name}
+
+%patch0
+%patch1
 
 %build
 glslang_DIR=%{_libdir}/cmake
