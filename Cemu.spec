@@ -133,8 +133,10 @@ cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/gameProfiles bin/
 install -dm 0755 %{buildroot}%{_datadir}/%{name}/resources
 cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/resources bin/resources/*
 
-# TODO use desktop-file-install instead https://docs.fedoraproject.org/en-US/packaging-guidelines/#_desktop_file_install_usage
-install -Dpm 0644 -t %{buildroot}%{_datadir}/applications dist/linux/%{rdns}.desktop
+desktop-file-install \
+    --dir=%{buildroot}%{_datadir}/applications \
+    dist/linux/%{rdns}.desktop
+
 install -Dpm 0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps dist/linux/%{rdns}.png
 install -Dpm 0644 -t %{buildroot}%{_metainfodir} dist/linux/%{rdns}.metainfo.xml
 
