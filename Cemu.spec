@@ -141,7 +141,6 @@ install -Dpm 0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps dist/lin
 install -Dpm 0644 -t %{buildroot}%{_metainfodir} dist/linux/%{rdns}.metainfo.xml
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdns}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metainfo.xml
 
 %files
