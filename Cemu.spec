@@ -34,6 +34,8 @@ Source3:        glslangConfig.cmake
 Patch0:         00-Cemu-fmt.patch
 Patch1:         01-Cemu-no-strip-debug.patch
 
+# Keep this section in sync with upstream build instructions
+# <https://github.com/cemu-project/Cemu/blob/445b0afa9545c9ae7ed30f025bb2f3da2ee1a5f9/BUILD.md#for-fedora-and-derivatives>
 BuildRequires:  clang
 BuildRequires:  cmake
 BuildRequires:  cubeb-devel
@@ -50,7 +52,7 @@ BuildRequires:  perl-core
 #BuildRequires:  systemd-devel
 BuildRequires:  zlib-devel
 
-# Upstream uses vcpkg for these deps:
+# This section replaces vcpkg used by upstream
 BuildRequires:  SDL2-devel
 BuildRequires:  boost-devel
 BuildRequires:  fmt-devel
@@ -92,12 +94,14 @@ compatibility, convenience, and usability.
 %prep
 %forgesetup
 
-tar -xzf %{SOURCE1} -C dependencies
+# Remove dependencies/imgui, and extract imgui from the tarball to replace it
 rm -rf dependencies/%{imgui_name}
+tar -xzf %{SOURCE1} -C dependencies
 mv dependencies/%{imgui_name}-%{imgui_commit} dependencies/%{imgui_name}
 
-tar -xzf %{SOURCE2} -C dependencies
+# Same for dependencies/zarchive
 rm -rf dependencies/%{zarchive_name}
+tar -xzf %{SOURCE2} -C dependencies
 mv dependencies/%{zarchive_name}-%{zarchive_commit} dependencies/%{zarchive_name}
 
 # Add missing glslang CMake file
