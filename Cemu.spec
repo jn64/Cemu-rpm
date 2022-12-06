@@ -135,6 +135,8 @@ cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/resources bin/res
 
 desktop-file-install \
     --dir=%{buildroot}%{_datadir}/applications \
+    --set-key=PrefersNonDefaultGPU \
+    --set-value=true \
     dist/linux/%{rdns}.desktop
 
 install -Dpm 0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps dist/linux/%{rdns}.png
