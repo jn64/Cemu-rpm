@@ -28,6 +28,10 @@ URL:            %{forgeurl}
 Source0:        %{forgesource}
 Source1:        https://github.com/ocornut/%{imgui_name}/archive/%{imgui_commit}/%{imgui_name}-%{imgui_commit}.tar.gz
 Source2:        https://github.com/Exzap/%{zarchive_name}/archive/%{zarchive_commit}/%{zarchive_name}-%{zarchive_commit}.tar.gz
+# Use fmt in non-header-only mode
+# Not applicable to upstream which uses vcpkg fmt
+# Patch based on cemu-git Arch package
+# <https://aur.archlinux.org/cgit/aur.git/commit/?h=cemu-git&id=af25b06aeeb1c89c09359382ac25266d4bb2859e>
 Patch0:         00-Cemu-fmt.patch
 Patch1:         01-Cemu-no-strip-debug.patch
 
