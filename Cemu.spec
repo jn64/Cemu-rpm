@@ -23,7 +23,7 @@ Version:        2.0
 Release:        1%{?dist}
 Summary:        Wii U emulator
 
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 Source1:        https://github.com/ocornut/%{imgui_name}/archive/%{imgui_commit}/%{imgui_name}-%{imgui_commit}.tar.gz
