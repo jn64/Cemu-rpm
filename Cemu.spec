@@ -68,14 +68,6 @@ BuildRequires:  wxGTK-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
-Requires:       boost-atomic
-Requires:       boost-filesystem
-Requires:       boost-nowide
-Requires:       boost-program-options
-Requires:       cubeb
-Requires:       SDL2
-Requires:       wxGTK
-Requires:       wxGTK-gl
 
 Requires:       hicolor-icon-theme
 Requires:       shared-mime-info
