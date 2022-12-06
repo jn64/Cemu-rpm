@@ -155,5 +155,5 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
-* Mon Dec 05 2022 Justin Koh <j@ustink.org> - 2.0-1
+* Mon Dec 05 2022 Justin Koh <j@ustink.org> - 2.0-1.20221205git445b0af
 - Initial build
