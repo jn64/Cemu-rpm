@@ -146,8 +146,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %license LICENSE.txt
 %doc README.md
 %{_bindir}/%{name}
-# Include the whole /usr/share/Cemu
-%{_datadir}/%{name}
+%{_datadir}/%{name}/
 %{_datadir}/applications/%{rdns}.desktop
 %{_datadir}/icons/hicolor/128x128/apps/%{rdns}.png
 %{_metainfodir}/%{rdns}.metainfo.xml
