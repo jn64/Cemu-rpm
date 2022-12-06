@@ -28,9 +28,6 @@ URL:            %{forgeurl}
 Source0:        %{forgesource}
 Source1:        https://github.com/ocornut/%{imgui_name}/archive/%{imgui_commit}/%{imgui_name}-%{imgui_commit}.tar.gz
 Source2:        https://github.com/Exzap/%{zarchive_name}/archive/%{zarchive_commit}/%{zarchive_name}-%{zarchive_commit}.tar.gz
-# Workaround for missing glslang CMake file
-# <https://github.com/KhronosGroup/glslang/issues/2570>
-Source3:        glslangConfig.cmake
 Patch0:         00-Cemu-fmt.patch
 Patch1:         01-Cemu-no-strip-debug.patch
 
@@ -104,8 +101,6 @@ rm -rf dependencies/%{zarchive_name}
 tar -xzf %{SOURCE2} -C dependencies
 mv dependencies/%{zarchive_name}-%{zarchive_commit} dependencies/%{zarchive_name}
 
-# Add missing glslang CMake file
-#cp -v %%{SOURCE3} /usr/lib64/cmake
 %patch0
 %patch1
 
