@@ -72,7 +72,6 @@ BuildRequires:  wxGTK-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
-
 Requires:       hicolor-icon-theme
 Requires:       shared-mime-info
 
