@@ -124,12 +124,14 @@ export glslang_DIR
 %install
 # Install bin/Cemu_release to /usr/bin/Cemu
 install -Dpm 0755 bin/%{name}_release %{buildroot}%{_bindir}/%{name}
-# Create /usr/share/Cemu
-install -m 755 -d %{buildroot}%{_datadir}/%{name}
-# Copy everything from bin/ except the binary to /usr/share/Cemu
-GLOBIGNORE=bin/%{name}_release
-cp -pr bin/* %{buildroot}%{_datadir}/%{name}
-unset GLOBIGNORE
+
+# Install bin/gameProfiles/* to /usr/share/Cemu/gameProfiles
+install -dm 0755 %{buildroot}%{_datadir}/%{name}/gameProfiles
+cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/gameProfiles bin/gameProfiles/*
+
+# Install bin/resources/* to /usr/share/Cemu/resources
+install -dm 0755 %{buildroot}%{_datadir}/%{name}/resources
+cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/resources bin/resources/*
 
 # TODO use desktop-file-install instead https://docs.fedoraproject.org/en-US/packaging-guidelines/#_desktop_file_install_usage
 install -Dpm 0644 -t %{buildroot}%{_datadir}/applications dist/linux/%{rdns}.desktop
