@@ -89,12 +89,12 @@ $ rpm -qpRv /path/to/rpm
 and install with `dnf` (not `rpm`):
 
 ```shell
-$ dnf install /path/to/rpm
+$ sudo dnf install /path/to/rpm
 ```
 
 Uninstall by package name (not filename):
 
 ```shell
-$ dnf remove Cemu
+$ sudo dnf remove Cemu
 ```
 
