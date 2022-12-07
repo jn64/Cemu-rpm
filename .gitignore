@@ -1,5 +1,10 @@
 # fedpkg mockbuild results
 results_*/
+
+# Source tarballs
 Cemu-*.tar.gz
 ZArchive-*.tar.gz
 imgui-*.tar.gz
+
+# srpms
+Cemu-*.src.rpm
