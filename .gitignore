@@ -1,2 +1,5 @@
 # fedpkg mockbuild results
 results_*/
+Cemu-*.tar.gz
+ZArchive-*.tar.gz
+imgui-*.tar.gz
