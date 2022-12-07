@@ -31,11 +31,11 @@ I'm using `fedpkg` because it's a convenient wrapper. Only using it for offline 
 ```shell
 $ git clone https://github.com/jn64/Cemu-rpm.git
 $ cd Cemu-rpm
-$ fedpkg --release f37 lint #STEP0
-$ fedpkg --release f37 mockbuild --no-cleanup-after #STEP1
+$ fedpkg --name Cemu --release f37 lint #STEP0
+$ fedpkg --name Cemu --release f37 mockbuild --no-cleanup-after #STEP1
 $ sudo install -m 0644 -o root glslangConfig.cmake /var/lib/mock/fedora-37-x86_64/root/usr/lib64/cmake/ #STEP2
-$ fedpkg --release f37 mockbuild --no-clean-all #STEP3
-$ fedpkg --release f37 lint #STEP4
+$ fedpkg --name Cemu --release f37 mockbuild --no-clean-all #STEP3
+$ fedpkg --name Cemu --release f37 lint #STEP4
 ```
 
 ### STEP0
