@@ -128,11 +128,11 @@ export glslang_DIR
 install -Dpm 0755 bin/%{name}_release %{buildroot}%{_bindir}/%{name}
 
 # bin/gameProfiles/* -> /usr/share/Cemu/gameProfiles
-install -dm 0755 %{buildroot}%{_datadir}/%{name}/gameProfiles
+mkdir -p %{buildroot}%{_datadir}/%{name}/gameProfiles
 cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/gameProfiles bin/gameProfiles/*
 
 # bin/resources/* -> /usr/share/Cemu/resources
-install -dm 0755 %{buildroot}%{_datadir}/%{name}/resources
+mkdir -p %{buildroot}%{_datadir}/%{name}/resources
 cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/resources bin/resources/*
 
 install -Dpm 0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps dist/linux/%{rdns}.png
