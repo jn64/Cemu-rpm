@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/fca7f5dfe4dc6c7293183922c964713b55017fd5
+# https://github.com/cemu-project/Cemu/commit/5a143c7b4b8929acf37a37b00c1068e8ab2d3251
 %global forgeurl https://github.com/cemu-project/Cemu
-%global commit fca7f5dfe4dc6c7293183922c964713b55017fd5
+%global commit 5a143c7b4b8929acf37a37b00c1068e8ab2d3251
 %forgemeta
 
 # https://github.com/ocornut/imgui/commit/8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
@@ -13,9 +13,9 @@
 %global za_url https://github.com/Exzap/%{za_name}
 %global za_commit d2c717730092c7bf8cbb033b12fd4001b7c4d932
 
-%global toolchain clang
-
 %global rdns info.cemu.Cemu
+
+%global toolchain clang
 
 Name:           Cemu
 Version:        2.0
@@ -111,6 +111,11 @@ export glslang_DIR
 # Setting it in build_ldflags didn't work, use optflags
 %global optflags %{optflags} -lwayland-client
 
+# CMake can't get the hash using git since the source dir isn't a git repo.
+# Set it to the distprefix to make it more obvious that a user
+# is using this packaged version of Cemu.
+sed -i 's/${GIT_HASH}/20221208git5a143c7/' CMakeLists.txt
+
 # BUILD_SHARED_LIBS=OFF is to fix this error:
 #    At least one of these targets is not a STATIC_LIBRARY. Cyclic dependencies are allowed only among static libraries.
 %cmake \
@@ -157,10 +162,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
-* Wed Dec 07 2022 Justin Koh <j@ustink.org> - 2.0-3
-- WIP
-* Wed Dec 07 2022 Justin Koh <j@ustink.org> - 2.0-2.20221208gitfca7f5d
-- Linux: Add Vulkan support for wayland (Cemu#553)
+* Fri Dec 09 2022 Justin Koh <j@ustink.org> - 2.0-3.20221208git5a143c7
+- Use faster clock_gettime() for tick_cached() (Cemu#563)
+- Include shaderCache/info.txt in docs
+- Show detailed version in titlebar
+
+* Thu Dec 08 2022 Justin Koh <j@ustink.org> - 2.0-2.20221208gitfca7f5d
+- Add Vulkan support for Wayland (Cemu#553)
 
 * Wed Dec 07 2022 Justin Koh <j@ustink.org> - 2.0-1.20221205git445b0af
 - Initial build
