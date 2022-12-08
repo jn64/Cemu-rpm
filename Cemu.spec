@@ -19,7 +19,7 @@
 
 Name:           Cemu
 Version:        2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Wii U emulator
 
 License:        MPL-2.0
@@ -157,6 +157,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Wed Dec 07 2022 Justin Koh <j@ustink.org> - 2.0-3
+- WIP
 * Wed Dec 07 2022 Justin Koh <j@ustink.org> - 2.0-2.20221208gitfca7f5d
 - Linux: Add Vulkan support for wayland (Cemu#553)
 
