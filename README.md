@@ -2,7 +2,7 @@
 
 Summary:
 
-- I have a working non-vcpkg rpm of Cemu for Fedora 37
+- This is a working package of [Cemu](https://github.com/cemu-project/Cemu) for Fedora 37
 - The process to build it involves fucking with the mock chroot to patch one file in `/usr` (???)
 
 What this means:
@@ -98,3 +98,10 @@ Uninstall by package name (not filename):
 $ sudo dnf remove Cemu
 ```
 
+## License
+
+Cemu is [MPL-2.0](https://spdx.org/licenses/MPL-2.0.html)
+
+The spec file and any original documents in this repo are [0BSD](https://spdx.org/licenses/0BSD.html)
+
+Patches to Cemu source code are MPL-2.0 or the license of the original file
