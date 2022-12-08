@@ -75,6 +75,8 @@ BuildRequires:  libappstream-glib
 Requires:       hicolor-icon-theme
 Requires:       shared-mime-info
 
+Provides:       cemu = %{version}-%{release}
+
 %description
 Cemu is a cross-platform emulator for the Nintendo Wii U game console.
 It is written in C/C++, and is able to run most Wii U games and
