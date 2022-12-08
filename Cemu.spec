@@ -135,9 +135,6 @@ cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/gameProfiles bin/
 install -dm 0755 %{buildroot}%{_datadir}/%{name}/resources
 cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/resources bin/resources/*
 
-# bin/shaderCache/* is not installed as it's not used in non-portable build
-# Should the bin/shaderCache/info.txt be installed as docs?
-
 install -Dpm 0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps dist/linux/%{rdns}.png
 install -Dpm 0644 -t %{buildroot}%{_metainfodir} dist/linux/%{rdns}.metainfo.xml
 
@@ -152,7 +149,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 
 %files
 %license LICENSE.txt
-%doc README.md
+%doc README.md bin/shaderCache/info.txt
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{rdns}.desktop
