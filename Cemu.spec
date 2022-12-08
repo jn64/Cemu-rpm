@@ -1,33 +1,32 @@
-# <https://github.com/cemu-project/Cemu/tree/445b0afa9545c9ae7ed30f025bb2f3da2ee1a5f9>
+# https://github.com/cemu-project/Cemu/commit/fca7f5dfe4dc6c7293183922c964713b55017fd5
 %global forgeurl https://github.com/cemu-project/Cemu
-%global commit 445b0afa9545c9ae7ed30f025bb2f3da2ee1a5f9
+%global commit fca7f5dfe4dc6c7293183922c964713b55017fd5
 %forgemeta
 
-# imgui submodule
-# <https://github.com/ocornut/imgui/tree/8a44c31c95c8e0217f6e1fc814cbbbcca4981f14>
-%global imgui_name imgui
-%global imgui_url https://github.com/ocornut/%{imgui_name}
-%global imgui_commit 8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
+# https://github.com/ocornut/imgui/commit/8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
+%global im_name imgui
+%global im_url https://github.com/ocornut/%{im_name}
+%global im_commit 8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
 
-# ZArchive submodule
-# <https://github.com/Exzap/ZArchive/tree/d2c717730092c7bf8cbb033b12fd4001b7c4d932>
-%global zarchive_name ZArchive
-%global zarchive_url https://github.com/Exzap/%{zarchive_name}
-%global zarchive_commit d2c717730092c7bf8cbb033b12fd4001b7c4d932
+# https://github.com/Exzap/ZArchive/commit/d2c717730092c7bf8cbb033b12fd4001b7c4d932
+%global za_name ZArchive
+%global za_url https://github.com/Exzap/%{za_name}
+%global za_commit d2c717730092c7bf8cbb033b12fd4001b7c4d932
 
 %global toolchain clang
+
 %global rdns info.cemu.Cemu
 
 Name:           Cemu
 Version:        2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wii U emulator
 
 License:        MPL-2.0
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-Source1:        https://github.com/ocornut/%{imgui_name}/archive/%{imgui_commit}/%{imgui_name}-%{imgui_commit}.tar.gz
-Source2:        https://github.com/Exzap/%{zarchive_name}/archive/%{zarchive_commit}/%{zarchive_name}-%{zarchive_commit}.tar.gz
+Source1:        https://github.com/ocornut/%{im_name}/archive/%{im_commit}/%{im_name}-%{im_commit}.tar.gz
+Source2:        https://github.com/Exzap/%{za_name}/archive/%{za_commit}/%{za_name}-%{za_commit}.tar.gz
 # Use fmt in non-header-only mode
 # Not applicable to upstream which uses vcpkg fmt
 # Patch based on cemu-git Arch package
@@ -36,7 +35,7 @@ Patch0:         00-Cemu-fmt.patch
 Patch1:         01-Cemu-no-strip-debug.patch
 
 # Keep this section in sync with upstream build instructions
-# <https://github.com/cemu-project/Cemu/blob/445b0afa9545c9ae7ed30f025bb2f3da2ee1a5f9/BUILD.md#for-fedora-and-derivatives>
+# <https://github.com/cemu-project/Cemu/blob/fca7f5dfe4dc6c7293183922c964713b55017fd5/BUILD.md#for-fedora-and-derivatives>
 BuildRequires:  clang
 BuildRequires:  cmake
 BuildRequires:  cubeb-devel
@@ -88,15 +87,15 @@ compatibility, convenience, and usability.
 %prep
 %forgesetup
 
-# Remove dependencies/imgui, and extract imgui from the tarball to replace it
-rm -rf dependencies/%{imgui_name}
+# imgui "submodule"
+rm -rf dependencies/%{im_name}
 tar -xzf %{SOURCE1} -C dependencies
-mv dependencies/%{imgui_name}-%{imgui_commit} dependencies/%{imgui_name}
+mv dependencies/%{im_name}-%{im_commit} dependencies/%{im_name}
 
-# Same for dependencies/zarchive
-rm -rf dependencies/%{zarchive_name}
+# ZArchive "submodule"
+rm -rf dependencies/%{za_name}
 tar -xzf %{SOURCE2} -C dependencies
-mv dependencies/%{zarchive_name}-%{zarchive_commit} dependencies/%{zarchive_name}
+mv dependencies/%{za_name}-%{za_commit} dependencies/%{za_name}
 
 %patch0
 %patch1
@@ -104,6 +103,13 @@ mv dependencies/%{zarchive_name}-%{zarchive_commit} dependencies/%{zarchive_name
 %build
 glslang_DIR=%{_libdir}/cmake
 export glslang_DIR
+
+# Fix for error:
+# /usr/bin/ld: /usr/lib64/libgtk-3.so: undefined reference to symbol 'wl_proxy_marshal_flags'
+# /usr/bin/ld: /usr/lib64/libwayland-client.so.0: error adding symbols: DSO missing from command line
+# Based on <https://github.com/libsdl-org/SDL/issues/5088#issue-1076489996>
+# Setting it in build_ldflags didn't work, use optflags
+%global optflags %{optflags} -lwayland-client
 
 # BUILD_SHARED_LIBS=OFF is to fix this error:
 #    At least one of these targets is not a STATIC_LIBRARY. Cyclic dependencies are allowed only among static libraries.
@@ -118,30 +124,25 @@ export glslang_DIR
 %cmake_build
 
 %install
-# Install bin/Cemu_release to /usr/bin/Cemu
+# bin/Cemu_release -> /usr/bin/Cemu
 install -Dpm 0755 bin/%{name}_release %{buildroot}%{_bindir}/%{name}
 
-# Install bin/gameProfiles/* to /usr/share/Cemu/gameProfiles
+# bin/gameProfiles/* -> /usr/share/Cemu/gameProfiles
 install -dm 0755 %{buildroot}%{_datadir}/%{name}/gameProfiles
 cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/gameProfiles bin/gameProfiles/*
 
-# Install bin/resources/* to /usr/share/Cemu/resources
+# bin/resources/* -> /usr/share/Cemu/resources
 install -dm 0755 %{buildroot}%{_datadir}/%{name}/resources
 cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/resources bin/resources/*
+
+# bin/shaderCache/* is not installed as it's not used in non-portable build
+# Should the bin/shaderCache/info.txt be installed as docs?
 
 install -Dpm 0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps dist/linux/%{rdns}.png
 install -Dpm 0644 -t %{buildroot}%{_metainfodir} dist/linux/%{rdns}.metainfo.xml
 
-# 1. Cemu doesn't officially support Wayland
-#    GDK_BACKEND=x11 required for now
-#    See <https://github.com/cemu-project/Cemu/issues/92#issue-1353130696>
-# 2. PrefersNonDefaultGPU will use the (presumably better) dGPU when
-#    both iGPU and dGPU are present, depending on DE support.
-#    See <https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#key-prefersnondefaultgpu>
 desktop-file-install \
     --dir=%{buildroot}%{_datadir}/applications \
-    --set-key=Exec \
-    --set-value='env GDK_BACKEND=x11 %{name}' \
     --set-key=PrefersNonDefaultGPU \
     --set-value=true \
     dist/linux/%{rdns}.desktop
@@ -159,5 +160,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Wed Dec 07 2022 Justin Koh <j@ustink.org> - 2.0-2.20221208gitfca7f5d
+- Linux: Add Vulkan support for wayland (Cemu#553)
+
 * Wed Dec 07 2022 Justin Koh <j@ustink.org> - 2.0-1.20221205git445b0af
 - Initial build
