@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/5a143c7b4b8929acf37a37b00c1068e8ab2d3251
-%global commit 5a143c7b4b8929acf37a37b00c1068e8ab2d3251
-%global date YYYYMMDD
+# https://github.com/cemu-project/Cemu/commit/4491560b32aa4a4c1b56a53e1baee2da4841a684
+%global commit 4491560b32aa4a4c1b56a53e1baee2da4841a684
+%global date 20221209
 %global scm git
 %global revision %(c=%{commit}; echo ${c:0:7})
 %global snapshot %{date}%{scm}%{revision}
@@ -21,7 +21,7 @@
 
 Name:           Cemu
 Version:        2.0^%{snapshot}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Wii U emulator
 
 License:        MPL-2.0
@@ -163,13 +163,5 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
-* Fri Dec 09 2022 Justin Koh <j@ustink.org> - 2.0-3.20221208git5a143c7
-- Use faster clock_gettime() for tick_cached() (Cemu#563)
-- Include shaderCache/info.txt in docs
-- Show detailed version in titlebar
-
-* Thu Dec 08 2022 Justin Koh <j@ustink.org> - 2.0-2.20221208gitfca7f5d
-- Add Vulkan support for Wayland (Cemu#553)
-
-* Wed Dec 07 2022 Justin Koh <j@ustink.org> - 2.0-1.20221205git445b0af
-- Initial build
+* Fri Dec 09 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-1
+- Switch to snapshot versioning
