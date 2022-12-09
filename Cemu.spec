@@ -111,10 +111,9 @@ export glslang_DIR
 # Setting it in build_ldflags didn't work, use optflags
 %global optflags %{optflags} -lwayland-client
 
-# CMake can't get the hash using git since the source dir isn't a git repo.
-# Set it to the distprefix to make it more obvious that a user
-# is using this packaged version of Cemu.
-sed -i 's/${GIT_HASH}/20221208git5a143c7/' CMakeLists.txt
+# CMake can't get the hash using git at build time
+# because the source tarball doesn't include the .git dir.
+sed -i 's/${GIT_HASH}/%{release}/' CMakeLists.txt
 
 # BUILD_SHARED_LIBS=OFF is to fix this error:
 #    At least one of these targets is not a STATIC_LIBRARY. Cyclic dependencies are allowed only among static libraries.
