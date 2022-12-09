@@ -1,7 +1,5 @@
 # https://github.com/cemu-project/Cemu/commit/5a143c7b4b8929acf37a37b00c1068e8ab2d3251
-%global forgeurl https://github.com/cemu-project/Cemu
 %global commit 5a143c7b4b8929acf37a37b00c1068e8ab2d3251
-%forgemeta
 
 # https://github.com/ocornut/imgui/commit/8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
 %global im_name imgui
@@ -23,8 +21,8 @@ Release:        3%{?dist}
 Summary:        Wii U emulator
 
 License:        MPL-2.0
-URL:            %{forgeurl}
-Source0:        %{forgesource}
+URL:            https://github.com/cemu-project/%{name}
+Source0:        https://github.com/cemu-project/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 Source1:        https://github.com/ocornut/%{im_name}/archive/%{im_commit}/%{im_name}-%{im_commit}.tar.gz
 Source2:        https://github.com/Exzap/%{za_name}/archive/%{za_commit}/%{za_name}-%{za_commit}.tar.gz
 # Use fmt in non-header-only mode
@@ -85,7 +83,7 @@ Cemu is actively developed with new features and fixes to increase
 compatibility, convenience, and usability.
 
 %prep
-%forgesetup
+%setup
 
 # imgui "submodule"
 rm -rf dependencies/%{im_name}
