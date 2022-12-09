@@ -32,10 +32,9 @@ I'm using `fedpkg` because it's a convenient wrapper. Only using it for offline 
 $ git clone https://github.com/jn64/Cemu-rpm.git
 $ cd Cemu-rpm
 $ fedpkg --name Cemu --release f37 lint #STEP0
-$ fedpkg --name Cemu --release f37 mockbuild --no-cleanup-after #STEP1
-$ sudo install -m 0644 -o root glslangConfig.cmake /var/lib/mock/fedora-37-x86_64/root/usr/lib64/cmake/ #STEP2
-$ fedpkg --name Cemu --release f37 mockbuild --no-clean-all #STEP3
-$ fedpkg --name Cemu --release f37 lint #STEP4
+$ mock -r fedora-37-x86_64 --copyin glslangConfig.cmake /usr/lib64/cmake #STEP1
+$ fedpkg --name Cemu --release f37 mockbuild --no-clean-all #STEP2
+$ fedpkg --name Cemu --release f37 lint #STEP3
 ```
 
 ### STEP0
@@ -44,25 +43,19 @@ Lint the spec file to check for errors
 
 ### STEP1
 
-STEP1 should fail at CMake error about glslang. If it fails at anything else, please report.
-
-Must have `--no-cleanup-after` to keep the chroot so we can modify it
+Insert the glslangConfig.cmake file into the chroot
 
 ### STEP2
 
-Insert the glslangConfig.cmake file into the chroot
+Build.
 
-### STEP3
+Use `--no-clean-all` (which means `--no-clean` and `--no-cleanup-after`) in case build fails, so you can troubleshoot issues without re-initialising the chroot every time (installing ~700 packages...).
 
-Continue the build.
-
-Use `--no-clean-all` (which means `--no-clean` and `--no-cleanup-after`) in case build still fails, so you can troubleshoot issues without starting from STEP1 again. It should not fail, but just in case.
-
-You can repeat STEP3 multiple times. Once you've sorted out all issues, you can change to `--no-clean` so it won't clean before, but it *will* clean (delete) the chroot after building (if you don't want to poke around in it).
+You can repeat this step multiple times. Once you've sorted out all issues, you can change to `--no-clean` so it won't clean before, but it *will* clean (delete) the chroot after building (if you don't want to poke around in it).
 
 buildroot is `/var/lib/mock/fedora-37-x86_64/root/builddir/build/BUILDROOT/Cemu-...`
 
-### STEP4
+### STEP3
 
 Lint again, this time it will check the packages as well. Some warnings are expected.
 
