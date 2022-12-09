@@ -87,7 +87,7 @@ Cemu is actively developed with new features and fixes to increase
 compatibility, convenience, and usability.
 
 %prep
-%setup
+%setup -n %{name}-%{commit} -q
 
 # imgui "submodule"
 rm -rf dependencies/%{im_name}
