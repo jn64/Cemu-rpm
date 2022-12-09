@@ -1,5 +1,9 @@
 # https://github.com/cemu-project/Cemu/commit/5a143c7b4b8929acf37a37b00c1068e8ab2d3251
 %global commit 5a143c7b4b8929acf37a37b00c1068e8ab2d3251
+%global date YYYYMMDD
+%global scm git
+%global revision %(c=%{commit}; echo ${c:0:7})
+%global snapshot %{date}%{scm}%{revision}
 
 # https://github.com/ocornut/imgui/commit/8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
 %global im_name imgui
@@ -16,7 +20,7 @@
 %global toolchain clang
 
 Name:           Cemu
-Version:        2.0
+Version:        2.0^%{snapshot}
 Release:        3%{?dist}
 Summary:        Wii U emulator
 
@@ -111,7 +115,7 @@ export glslang_DIR
 
 # CMake can't get the hash using git at build time
 # because the source tarball doesn't include the .git dir.
-sed -i 's/${GIT_HASH}/%{release}/' CMakeLists.txt
+sed -i 's/${GIT_HASH}/%{snapshot}/' CMakeLists.txt
 
 # BUILD_SHARED_LIBS=OFF is to fix this error:
 #    At least one of these targets is not a STATIC_LIBRARY. Cyclic dependencies are allowed only among static libraries.
