@@ -1,6 +1,6 @@
---- src/CMakeLists.txt
-+++ src/CMakeLists.txt
-@@ -128,7 +128,7 @@
+--- src/CMakeLists.txt	2022-12-09 13:33:56.755556394 +0800
++++ src/CMakeLists.txt	2022-12-10 11:50:42.751683159 +0800
+@@ -129,7 +129,7 @@
  	target_link_options(CemuBin PRIVATE -z noexecstack)
  	# some residual debug info from boost/discord-rpc is normally included
  	# most likely not helpful in debugging problems with cemu code

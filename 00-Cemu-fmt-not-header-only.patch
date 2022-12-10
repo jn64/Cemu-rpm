@@ -1,5 +1,5 @@
---- src/Common/precompiled.h
-+++ src/Common/precompiled.h
+--- src/Common/precompiled.h	2022-12-10 02:23:33.190940829 +0800
++++ src/Common/precompiled.h	2022-12-10 11:46:50.453988171 +0800
 @@ -5,7 +5,6 @@
  #include "version.h"
  #include "platform.h"

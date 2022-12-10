@@ -33,7 +33,7 @@ Source2:        https://github.com/Exzap/%{za_name}/archive/%{za_commit}/%{za_na
 # Not applicable to upstream which uses vcpkg fmt
 # Patch based on cemu-git Arch package
 # <https://aur.archlinux.org/cgit/aur.git/commit/?h=cemu-git&id=af25b06aeeb1c89c09359382ac25266d4bb2859e>
-Patch0:         00-Cemu-fmt.patch
+Patch0:         00-Cemu-fmt-not-header-only.patch
 Patch1:         01-Cemu-no-strip-debug.patch
 
 # Keep this section in sync with upstream build instructions
