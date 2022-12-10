@@ -1,9 +1,9 @@
 # https://github.com/cemu-project/Cemu/commit/4491560b32aa4a4c1b56a53e1baee2da4841a684
 %global commit 4491560b32aa4a4c1b56a53e1baee2da4841a684
-%global date 20221209
+%global commit_date 20221209
 %global scm git
 %global revision %(c=%{commit}; echo ${c:0:7})
-%global snapshot %{date}%{scm}%{revision}
+%global snapshot %{commit_date}%{scm}%{revision}
 
 # https://github.com/ocornut/imgui/commit/8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
 %global im_name imgui
@@ -54,7 +54,7 @@ BuildRequires:  perl-core
 #BuildRequires:  systemd-devel
 BuildRequires:  zlib-devel
 
-# This section replaces vcpkg used by upstream
+# This section replaces vcpkg
 BuildRequires:  SDL2-devel
 BuildRequires:  boost-devel
 BuildRequires:  fmt-devel
@@ -89,6 +89,9 @@ compatibility, convenience, and usability.
 %prep
 %setup -n %{name}-%{commit} -q
 
+%patch0
+%patch1
+
 # imgui "submodule"
 rm -rf dependencies/%{im_name}
 tar -xzf %{SOURCE1} -C dependencies
@@ -99,8 +102,9 @@ rm -rf dependencies/%{za_name}
 tar -xzf %{SOURCE2} -C dependencies
 mv dependencies/%{za_name}-%{za_commit} dependencies/%{za_name}
 
-%patch0
-%patch1
+# CMake can't get the hash using git at build time
+# because the source tarball doesn't include the .git dir.
+sed -i 's/${GIT_HASH}/%{snapshot}/' CMakeLists.txt
 
 %build
 glslang_DIR=%{_libdir}/cmake
@@ -112,10 +116,6 @@ export glslang_DIR
 # Based on <https://github.com/libsdl-org/SDL/issues/5088#issue-1076489996>
 # Setting it in build_ldflags didn't work, use optflags
 %global optflags %{optflags} -lwayland-client
-
-# CMake can't get the hash using git at build time
-# because the source tarball doesn't include the .git dir.
-sed -i 's/${GIT_HASH}/%{snapshot}/' CMakeLists.txt
 
 # BUILD_SHARED_LIBS=OFF is to fix this error:
 #    At least one of these targets is not a STATIC_LIBRARY. Cyclic dependencies are allowed only among static libraries.
@@ -163,5 +163,5 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
-* Fri Dec 09 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-1
+* Sat Dec 10 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-1
 - Switch to snapshot versioning
