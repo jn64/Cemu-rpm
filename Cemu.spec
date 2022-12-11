@@ -1,9 +1,8 @@
 # https://github.com/cemu-project/Cemu/commit/4491560b32aa4a4c1b56a53e1baee2da4841a684
 %global commit 4491560b32aa4a4c1b56a53e1baee2da4841a684
 %global commit_date 20221209
-%global scm git
-%global revision %(c=%{commit}; echo ${c:0:7})
-%global snapshot %{commit_date}%{scm}%{revision}
+%global short_commit %(c=%{commit}; echo ${c:0:7})
+%global snapshot %{commit_date}git%{short_commit}
 
 # https://github.com/ocornut/imgui/commit/8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
 %global im_name imgui
@@ -21,7 +20,7 @@
 
 Name:           Cemu
 Version:        2.0^%{snapshot}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wii U emulator
 
 License:        MPL-2.0
@@ -73,6 +72,9 @@ BuildRequires:  wxGTK-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
+# For the version hash workaround
+BuildRequires:  sed
+
 Requires:       hicolor-icon-theme
 Requires:       shared-mime-info
 
@@ -87,10 +89,7 @@ Cemu is actively developed with new features and fixes to increase
 compatibility, convenience, and usability.
 
 %prep
-%setup -n %{name}-%{commit} -q
-
-%patch0
-%patch1
+%autosetup -n %{name}-%{commit}
 
 # imgui "submodule"
 rm -rf dependencies/%{im_name}
@@ -104,7 +103,7 @@ mv dependencies/%{za_name}-%{za_commit} dependencies/%{za_name}
 
 # CMake can't get the hash using git at build time
 # because the source tarball doesn't include the .git dir.
-sed -i 's/${GIT_HASH}/%{snapshot}/' CMakeLists.txt
+sed -i -e 's/${GIT_HASH}/%{snapshot}/' CMakeLists.txt
 
 %build
 glslang_DIR=%{_libdir}/cmake
@@ -163,5 +162,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Sat Dec 10 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-2
+- WIP
+
 * Sat Dec 10 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-1
 - Switch to snapshot versioning

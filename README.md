@@ -49,7 +49,7 @@ The building is done with `mock` via `fedpkg mockbuild`, meaning the build depen
 
 Using `fedpkg mockbuild --no-clean-all` allows you to repeat the build without re-initialising the chroot (installing ~700 packages...), in case of any errors. If there are no issues with the build, you can change it to `--no-clean`, which will keep the file inserted in the previous step, but clean up (delete) the chroot after the mockbuild is done.
 
-`fedpkg lint` also lints the build results, unlike using `rpmlint` directly.
+`fedpkg lint` also lints the build results (if any), instead of having to specify filenames to `rpmlint` manually.
 
 #### Other ways to build Cemu
 

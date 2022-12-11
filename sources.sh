@@ -2,9 +2,8 @@
 
 # ./sources.sh
 # Download all SourceN URLs from the spec file
-#
-# Does not check for URL validity (if you have any Sources that are not URLs)
 
 readonly specfile='Cemu.spec'
 
-wget -nc $(rpmspec --parse "${specfile}" | sed -nE "s/^Source[[:digit:]]+:\s*//p")
+# The sed command prints only SourceN values starting with http or ftp
+wget -nc $(rpmspec --parse "${specfile}" | sed -En "s/^Source[[:digit:]]+:\s*(http|ftp)/\1/p")
