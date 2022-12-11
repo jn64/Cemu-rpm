@@ -89,7 +89,7 @@ Cemu is actively developed with new features and fixes to increase
 compatibility, convenience, and usability.
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -n %{name}-%{commit} -p0
 
 # imgui "submodule"
 rm -rf dependencies/%{im_name}
@@ -119,7 +119,7 @@ export glslang_DIR
 # BUILD_SHARED_LIBS=OFF is to fix this error:
 #    At least one of these targets is not a STATIC_LIBRARY. Cyclic dependencies are allowed only among static libraries.
 %cmake \
-    -DCMAKE_BUILD_TYPE=release \
+    -DCMAKE_BUILD_TYPE=Release \
     -DENABLE_VCPKG=OFF \
     -DENABLE_DISCORD_RPC=OFF \
     -DEXPERIMENTAL_VERSION=999999 \
@@ -162,7 +162,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
-* Sat Dec 10 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-2
+* Sun Dec 11 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-2
 - WIP
 
 * Sat Dec 10 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-1
