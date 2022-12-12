@@ -75,9 +75,6 @@ BuildRequires:  libappstream-glib
 # For the version hash workaround
 BuildRequires:  sed
 
-Requires:       hicolor-icon-theme
-Requires:       shared-mime-info
-
 Provides:       cemu = %{version}-%{release}
 
 %description
