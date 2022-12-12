@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/4491560b32aa4a4c1b56a53e1baee2da4841a684
-%global commit 4491560b32aa4a4c1b56a53e1baee2da4841a684
-%global commit_date 20221209
+# https://github.com/cemu-project/Cemu/commit/c78b3da872439fda2775d43bf1b921d72a4bee40
+%global commit c78b3da872439fda2775d43bf1b921d72a4bee40
+%global commit_date 20221212
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 %global snapshot %{commit_date}git%{short_commit}
 
@@ -20,7 +20,7 @@
 
 Name:           Cemu
 Version:        2.0^%{snapshot}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Wii U emulator
 
 License:        MPL-2.0
@@ -33,7 +33,6 @@ Source2:        https://github.com/Exzap/%{za_name}/archive/%{za_commit}/%{za_na
 # Patch based on cemu-git Arch package
 # <https://aur.archlinux.org/cgit/aur.git/commit/?h=cemu-git&id=af25b06aeeb1c89c09359382ac25266d4bb2859e>
 Patch0:         00-Cemu-fmt-not-header-only.patch
-Patch1:         01-Cemu-no-strip-debug.patch
 
 # Keep this section in sync with upstream build instructions
 # <https://github.com/cemu-project/Cemu/blob/fca7f5dfe4dc6c7293183922c964713b55017fd5/BUILD.md#for-fedora-and-derivatives>
@@ -121,7 +120,7 @@ export glslang_DIR
 # BUILD_SHARED_LIBS=OFF is to fix this error:
 #    At least one of these targets is not a STATIC_LIBRARY. Cyclic dependencies are allowed only among static libraries.
 %cmake \
-    -DCMAKE_BUILD_TYPE:STRING=Release \
+    -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
     -DENABLE_VCPKG:BOOL=OFF \
     -DENABLE_DISCORD_RPC:BOOL=OFF \
     -DEXPERIMENTAL_VERSION:STRING=999999 \
@@ -131,8 +130,10 @@ export glslang_DIR
 %cmake_build
 
 %install
-# bin/Cemu_release -> /usr/bin/Cemu
-install -Dpm 0755 bin/%{name}_release %{buildroot}%{_bindir}/%{name}
+# The binary is suffixed with build type in lowercase, e.g.
+# if CMAKE_BUILD_TYPE=Release, then bin/Cemu_release
+# if CMAKE_BUILD_TYPE=RelWithDebInfo, then bin/Cemu_relwithdebinfo
+install -Dpm 0755 bin/%{name}_relwithdebinfo %{buildroot}%{_bindir}/%{name}
 
 # bin/gameProfiles/* -> /usr/share/Cemu/gameProfiles
 mkdir -p %{buildroot}%{_datadir}/%{name}/gameProfiles
@@ -164,7 +165,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
-* Mon Dec 12 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-2
+* Mon Dec 12 2022 Justin Koh <j@ustink.org> - 2.0^20221212gitc78b3da-1
+- Update to upstream c78b3da
 - Fix building as PIE
 
 * Sat Dec 10 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-1
