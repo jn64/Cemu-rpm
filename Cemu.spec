@@ -109,6 +109,11 @@ sed -i -e 's/${GIT_HASH}/%{snapshot}/' CMakeLists.txt
 glslang_DIR=%{_libdir}/cmake
 export glslang_DIR
 
+# Fix building as PIE
+# Got a hint from <https://github.com/Tatsh/tatsh-overlay/issues/168#issuecomment-1328259491>
+%global optflags %{optflags} -fPIC
+%global build_ldflags %{build_ldflags} -pie
+
 # Fix for error:
 # /usr/bin/ld: /usr/lib64/libgtk-3.so: undefined reference to symbol 'wl_proxy_marshal_flags'
 # /usr/bin/ld: /usr/lib64/libwayland-client.so.0: error adding symbols: DSO missing from command line
@@ -162,8 +167,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
-* Sun Dec 11 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-2
-- WIP
+* Mon Dec 12 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-2
+- Fix building as PIE
 
 * Sat Dec 10 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-1
 - Switch to snapshot versioning
