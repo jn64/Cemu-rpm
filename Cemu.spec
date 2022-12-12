@@ -121,12 +121,12 @@ export glslang_DIR
 # BUILD_SHARED_LIBS=OFF is to fix this error:
 #    At least one of these targets is not a STATIC_LIBRARY. Cyclic dependencies are allowed only among static libraries.
 %cmake \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DENABLE_VCPKG=OFF \
-    -DENABLE_DISCORD_RPC=OFF \
-    -DEXPERIMENTAL_VERSION=999999 \
-    -DPORTABLE=OFF \
-    -DBUILD_SHARED_LIBS=OFF
+    -DCMAKE_BUILD_TYPE:STRING=Release \
+    -DENABLE_VCPKG:BOOL=OFF \
+    -DENABLE_DISCORD_RPC:BOOL=OFF \
+    -DEXPERIMENTAL_VERSION:STRING=999999 \
+    -DPORTABLE:BOOL=OFF \
+    -DBUILD_SHARED_LIBS:BOOL=OFF
 
 %cmake_build
 
