@@ -24,7 +24,7 @@ Release:        2%{?dist}
 Summary:        Wii U emulator
 
 License:        MPL-2.0
-URL:            https://github.com/cemu-project/%{name}
+URL:            https://cemu.info
 Source0:        https://github.com/cemu-project/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 Source1:        https://github.com/ocornut/%{im_name}/archive/%{im_commit}/%{im_name}-%{im_commit}.tar.gz
 Source2:        https://github.com/Exzap/%{za_name}/archive/%{za_commit}/%{za_name}-%{za_commit}.tar.gz
