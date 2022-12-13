@@ -37,7 +37,7 @@ Patch0:         00-Cemu-fmt-not-header-only.patch
 # Keep this section in sync with upstream build instructions
 # <https://github.com/cemu-project/Cemu/blob/fca7f5dfe4dc6c7293183922c964713b55017fd5/BUILD.md#for-fedora-and-derivatives>
 BuildRequires:  clang
-BuildRequires:  cmake
+BuildRequires:  cmake >= 3.21.1
 BuildRequires:  cubeb-devel
 BuildRequires:  freeglut-devel
 #BuildRequires:  git
@@ -55,7 +55,7 @@ BuildRequires:  zlib-devel
 # This section replaces vcpkg
 BuildRequires:  SDL2-devel
 BuildRequires:  boost-devel
-BuildRequires:  fmt-devel
+BuildRequires:  fmt-devel >= 9.1
 BuildRequires:  glm-devel
 BuildRequires:  glslang-devel
 BuildRequires:  libcurl-devel
@@ -66,7 +66,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  pugixml-devel
 BuildRequires:  rapidjson-devel
 BuildRequires:  vulkan-headers
-BuildRequires:  wxGTK-devel
+BuildRequires:  wxGTK-devel >= 3.2
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
