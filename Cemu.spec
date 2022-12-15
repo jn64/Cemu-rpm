@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/c78b3da872439fda2775d43bf1b921d72a4bee40
-%global commit c78b3da872439fda2775d43bf1b921d72a4bee40
-%global commit_date 20221212
+# https://github.com/cemu-project/Cemu/commit/fcab8f8f1a15c0dcfd33adfb0021439827b93c92
+%global commit fcab8f8f1a15c0dcfd33adfb0021439827b93c92
+%global commit_date 20221215
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 %global snapshot %{commit_date}git%{short_commit}
 
@@ -110,13 +110,6 @@ export glslang_DIR
 %global optflags %{optflags} -fPIC
 %global build_ldflags %{build_ldflags} -pie
 
-# Fix for error:
-# /usr/bin/ld: /usr/lib64/libgtk-3.so: undefined reference to symbol 'wl_proxy_marshal_flags'
-# /usr/bin/ld: /usr/lib64/libwayland-client.so.0: error adding symbols: DSO missing from command line
-# Based on <https://github.com/libsdl-org/SDL/issues/5088#issue-1076489996>
-# Setting it in build_ldflags didn't work, use optflags
-%global optflags %{optflags} -lwayland-client
-
 # BUILD_SHARED_LIBS=OFF is to fix this error:
 #    At least one of these targets is not a STATIC_LIBRARY. Cyclic dependencies are allowed only among static libraries.
 %cmake \
@@ -165,8 +158,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Thu Dec 15 2022 Justin Koh <j@ustink.org> - 2.0^20221215gitfcab8f8-1
+- Update to fcab8f8
+
 * Mon Dec 12 2022 Justin Koh <j@ustink.org> - 2.0^20221212gitc78b3da-1
-- Update to upstream c78b3da
+- Update to c78b3da
 - Fix building as PIE
 
 * Sat Dec 10 2022 Justin Koh <j@ustink.org> - 2.0^20221209git4491560-1

@@ -34,7 +34,7 @@ If you've never used any RPM packaging tools like `rpmbuild`, `mock`, or `fedpkg
 ```shell
 $ git clone https://github.com/jn64/Cemu-rpm.git
 $ cd Cemu-rpm
-$ ./sources.sh
+$ spectool -g Cemu.spec
 $ fedpkg --name Cemu --release f37 lint
 $ mock -r fedora-37-x86_64 --copyin glslangConfig.cmake /usr/lib64/cmake
 $ fedpkg --name Cemu --release f37 mockbuild --no-clean-all
