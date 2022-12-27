@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/fcab8f8f1a15c0dcfd33adfb0021439827b93c92
-%global commit fcab8f8f1a15c0dcfd33adfb0021439827b93c92
-%global commit_date 20221215
+# https://github.com/cemu-project/Cemu/commit/0c6f18ab9705be0c8ffc61e365c7214e280e6df5
+%global commit 0c6f18ab9705be0c8ffc61e365c7214e280e6df5
+%global commit_date 20221226
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 %global snapshot %{commit_date}git%{short_commit}
 
@@ -158,6 +158,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Tue Dec 27 2022 Justin Koh <j@ustink.org> - 2.0^20221226git0c6f18a-1
+- Update to 0c6f18a
+
 * Thu Dec 15 2022 Justin Koh <j@ustink.org> - 2.0^20221215gitfcab8f8-1
 - Update to fcab8f8
 
