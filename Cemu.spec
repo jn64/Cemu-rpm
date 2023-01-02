@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/0c6f18ab9705be0c8ffc61e365c7214e280e6df5
-%global commit 0c6f18ab9705be0c8ffc61e365c7214e280e6df5
-%global commit_date 20221226
+# https://github.com/cemu-project/Cemu/commit/33bd10b4e0b9c27881fa7d6bf38908791f84d3b2
+%global commit 33bd10b4e0b9c27881fa7d6bf38908791f84d3b2
+%global commit_date 20221228
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 %global snapshot %{commit_date}git%{short_commit}
 
@@ -74,6 +74,10 @@ BuildRequires:  libappstream-glib
 # For the version hash workaround
 BuildRequires:  sed
 
+# Workaround for missing glslangConfig.cmake file
+# Testing for Copr
+BuildRequires:  glslang-cmake-workaround
+
 Provides:       cemu = %{version}-%{release}
 
 %description
@@ -115,7 +119,7 @@ export glslang_DIR
 %cmake \
     -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
     -DENABLE_VCPKG:BOOL=OFF \
-    -DENABLE_DISCORD_RPC:BOOL=OFF \
+    -DENABLE_DISCORD_RPC:BOOL=ON \
     -DEXPERIMENTAL_VERSION:STRING=999999 \
     -DPORTABLE:BOOL=OFF \
     -DBUILD_SHARED_LIBS:BOOL=OFF
@@ -158,6 +162,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Tue Jan 03 2023 Justin Koh <j@ustink.org> - 2.0^20221228git33bd10b-1
+- Update to 33bd10b
+- Build with Discord RPC (can be toggled in Cemu's General Settings)
+- Package glslang workaround so this can be built on Copr
+
 * Tue Dec 27 2022 Justin Koh <j@ustink.org> - 2.0^20221226git0c6f18a-1
 - Update to 0c6f18a
 
