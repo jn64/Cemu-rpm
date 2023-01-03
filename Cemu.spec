@@ -20,14 +20,16 @@
 
 Name:           Cemu
 Version:        2.0^%{snapshot}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wii U emulator
 
 License:        MPL-2.0
 URL:            https://cemu.info
+
 Source0:        https://github.com/cemu-project/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 Source1:        https://github.com/ocornut/%{im_name}/archive/%{im_commit}/%{im_name}-%{im_commit}.tar.gz
 Source2:        https://github.com/Exzap/%{za_name}/archive/%{za_commit}/%{za_name}-%{za_commit}.tar.gz
+
 # Use fmt in non-header-only mode
 # Not applicable to upstream which uses vcpkg fmt
 # Patch based on cemu-git Arch package
@@ -74,9 +76,14 @@ BuildRequires:  libappstream-glib
 # For the version hash workaround
 BuildRequires:  sed
 
-# Workaround for missing glslangConfig.cmake file
-# Testing for Copr
+# Workaround for missing glslangConfig.cmake file (1/2)
+# Only for F37 Copr build
+# Should not be necessary in F38 based on current rawhide build results
+# This breaks local builds. You can comment out this BR
+# and manually insert the file into the build chroot if using mock.
+%if 0%{?fedora} == 37
 BuildRequires:  Cemu-glslang-cmake-workaround
+%endif
 
 Provides:       cemu = %{version}-%{release}
 
@@ -106,8 +113,11 @@ mv dependencies/%{za_name}-%{za_commit} dependencies/%{za_name}
 sed -i -e 's/${GIT_HASH}/%{snapshot}/' CMakeLists.txt
 
 %build
+# Workaround for missing glslangConfig.cmake file (2/2)
+%if 0%{?fedora} == 37
 glslang_DIR=%{_libdir}/cmake
 export glslang_DIR
+%endif
 
 # Fix building as PIE
 # Got a hint from <https://github.com/Tatsh/tatsh-overlay/issues/168#issuecomment-1328259491>
@@ -162,6 +172,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Tue Jan 03 2023 Justin Koh <j@ustink.org> - 2.0^20221228git33bd10b-2
+- Add conditionals so same spec file can be used for F37 and rawhide/F38
+
 * Tue Jan 03 2023 Justin Koh <j@ustink.org> - 2.0^20221228git33bd10b-1
 - Update to 33bd10b
 - Build with Discord RPC (can be toggled in Cemu's General Settings)
