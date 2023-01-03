@@ -76,7 +76,7 @@ BuildRequires:  sed
 
 # Workaround for missing glslangConfig.cmake file
 # Testing for Copr
-BuildRequires:  glslang-cmake-workaround
+BuildRequires:  Cemu-glslang-cmake-workaround
 
 Provides:       cemu = %{version}-%{release}
 
