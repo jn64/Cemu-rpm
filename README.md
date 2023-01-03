@@ -1,10 +1,13 @@
 # Cemu rpm package for Fedora
 
-Built packages are [available on Copr jn64/Cemu](https://copr.fedorainfracloud.org/coprs/jn64/Cemu/).
-
-Currently only Fedora 37 builds are available. F36 is not supported due to older libs.
+[Cemu](https://cemu.info/) is a Wii U emulator.
+This is an rpm package of Cemu for Fedora Linux.
 
 ## For users
+
+[Built packages are available on Copr jn64/Cemu](https://copr.fedorainfracloud.org/coprs/jn64/Cemu/).
+
+Only Fedora 37 builds are available currently. F36 is not supported due to older libs.
 
 ### Installation
 
@@ -28,15 +31,19 @@ Everything else *should* be the same as upstream builds, or it's a bug with the 
 
 ### Issue reporting
 
-If you're not sure, report it here.
+[Report issues with this package here](https://github.com/jn64/Cemu-rpm/issues).
 
-If Cemu doesn't start, run it from terminal and report it here.
+Please include the package version in your report. You can obtain it by running:
 
-Only report upstream if you confirm the bug with upstream build (AppImage) or by building it yourself.
+```shell
+$ dnf -qC rq --installed --nvr Cemu
+```
+
+Only [report upstream](https://github.com/cemu-project/Cemu) if you can reproduce the bug with upstream builds (AppImage) or by building it yourself.
 
 ## For packagers
 
-TODO: document glslang workaround for Copr. Breaks local builds.
+TODO: document glslang workaround for Copr. Breaks local builds. See spec file
 
 ## License
 
@@ -45,3 +52,10 @@ Cemu is [MPL-2.0](https://spdx.org/licenses/MPL-2.0.html)
 The spec file and any original documents in this repo are [0BSD](https://spdx.org/licenses/0BSD.html)
 
 Patches to Cemu source code are MPL-2.0 or the license of the original file
+
+## Links
+
+- [Cemu homepage](https://cemu.info/)
+- [Upstream repo](https://github.com/cemu-project/Cemu)
+- [Game compatibility](https://compat.cemu.info/)
+- [Unofficial Cemu user guide](https://cemu.cfw.guide/)
