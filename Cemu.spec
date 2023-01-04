@@ -142,13 +142,10 @@ export glslang_DIR
 # if CMAKE_BUILD_TYPE=RelWithDebInfo, then bin/Cemu_relwithdebinfo
 install -Dpm 0755 bin/%{name}_relwithdebinfo %{buildroot}%{_bindir}/%{name}
 
-# bin/gameProfiles/* -> /usr/share/Cemu/gameProfiles
-mkdir -p %{buildroot}%{_datadir}/%{name}/gameProfiles
-cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/gameProfiles bin/gameProfiles/*
-
-# bin/resources/* -> /usr/share/Cemu/resources
-mkdir -p %{buildroot}%{_datadir}/%{name}/resources
-cp -r --preserve=timestamps -t %{buildroot}%{_datadir}/%{name}/resources bin/resources/*
+# Install bin/gameProfiles and bin/resources to /usr/share/Cemu
+# Don't install bin/shaderCache as it's unused in non-portable mode
+mkdir -p %{buildroot}%{_datadir}/%{name}
+cp -rp -t %{buildroot}%{_datadir}/%{name} bin/gameProfiles bin/resources
 
 install -Dpm 0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps dist/linux/%{rdns}.png
 install -Dpm 0644 -t %{buildroot}%{_metainfodir} dist/linux/%{rdns}.metainfo.xml
