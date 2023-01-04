@@ -111,6 +111,10 @@ mv dependencies/%{za_name}-%{za_commit} dependencies/%{za_name}
 # CMake can't get the hash using git at build time
 # because the source tarball doesn't include the .git dir.
 sed -i -e 's/${GIT_HASH}/%{snapshot}/' CMakeLists.txt
+# Also patch the cli --version
+_pattern='versionStr = fmt::format("{}.{}-{}{}", EMULATOR_VERSION_LEAD, EMULATOR_VERSION_MAJOR, EMULATOR_VERSION_MINOR, EMULATOR_VERSION_SUFFIX);'
+_replace='versionStr = fmt::format("{}.{}-{}{}", EMULATOR_VERSION_LEAD, EMULATOR_VERSION_MAJOR, "%{snapshot}", EMULATOR_VERSION_SUFFIX);'
+sed -i -e "s/${_pattern}/${_replace}/" src/config/LaunchSettings.cpp
 
 %build
 # Workaround for missing glslangConfig.cmake file (2/2)
