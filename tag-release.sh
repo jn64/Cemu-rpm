@@ -11,16 +11,16 @@ readonly vr_nodist="${vr%.fc*}"
 # Normalises the following to - (hyphen-minus):
 #   space ~ ^ : ? *
 # shellcheck disable=SC2155
-readonly vr_nodist_norm="$(sed -E -e 's@[ ~^:?*]@-@g' <<<"${vr_nodist}")"
+readonly git_tag="$(sed -E -e 's@[ ~^:?*]@-@g' <<<"${vr_nodist}")"
 
 printf '%-25s:  %s\n' \
 	'Version-Release (no dist)' "${vr_nodist}" \
-	'Normalised for git' "${vr_nodist_norm}"
+	'Normalised for git' "${git_tag}"
 
 echo 'Tagging HEAD...'
-if git tag "${vr_nodist_norm}"; then
+if git tag "${git_tag}"; then
 	# Copy to clipboard
-	xclip -selection clipboard -rmlastnl <<<"${vr_nodist_norm}"
-	echo 'Copied to clipboard. Use it for GitHub release title and filenames.'
-	echo 'Remember to git push the tag too.'
+	xclip -selection clipboard -rmlastnl <<<"${git_tag}"
+	echo 'Copied tag to clipboard.'
+	echo 'Pushing the tag will trigger a rebuild on Copr.'
 fi

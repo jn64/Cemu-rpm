@@ -29,7 +29,7 @@ This Cemu package is built with these options:
 
 Everything else *should* be the same as upstream builds, or it's a bug with the package.
 
-### Issue reporting
+### Reporting issues
 
 [Report issues with this package here](https://github.com/jn64/Cemu-rpm/issues).
 
@@ -39,11 +39,13 @@ Please include the package version in your report. You can obtain it by running:
 $ dnf -qC rq --installed --nvr Cemu
 ```
 
-Only [report upstream](https://github.com/cemu-project/Cemu) if you can reproduce the bug with upstream builds (AppImage) or by building it yourself.
+Only [report upstream](https://github.com/cemu-project/Cemu/issues) if you can reproduce the issue with upstream builds (AppImage) or by building it yourself.
 
 ## For packagers
 
 TODO: document glslang workaround for Copr. Breaks local builds. See spec file
+
+Automatic rebuilds on Copr are triggered via webhook on branch/tag creation
 
 ## License
 
