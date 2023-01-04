@@ -161,7 +161,7 @@ desktop-file-install \
     --dir=%{buildroot}%{_datadir}/applications \
     --set-key=PrefersNonDefaultGPU \
     --set-value=true \
-    --set-key=X-KDE-RunOnDiscreteGpu=true \
+    --set-key=X-KDE-RunOnDiscreteGpu \
     --set-value=true \
     dist/linux/%{rdns}.desktop
 
