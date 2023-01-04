@@ -137,7 +137,7 @@ export glslang_DIR
 %cmake_build
 
 %install
-# The binary is suffixed with build type in lowercase, e.g.
+# The binary is suffixed with build type in lowercase, i.e.
 # if CMAKE_BUILD_TYPE=Release, then bin/Cemu_release
 # if CMAKE_BUILD_TYPE=RelWithDebInfo, then bin/Cemu_relwithdebinfo
 install -Dpm 0755 bin/%{name}_relwithdebinfo %{buildroot}%{_bindir}/%{name}
@@ -147,12 +147,21 @@ install -Dpm 0755 bin/%{name}_relwithdebinfo %{buildroot}%{_bindir}/%{name}
 mkdir -p %{buildroot}%{_datadir}/%{name}
 cp -rp -t %{buildroot}%{_datadir}/%{name} bin/gameProfiles bin/resources
 
+# Desktop-related files
 install -Dpm 0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps dist/linux/%{rdns}.png
 install -Dpm 0644 -t %{buildroot}%{_metainfodir} dist/linux/%{rdns}.metainfo.xml
-
+# Set PrefersNonDefaultGPU
+# It should benefit the majority of dual-GPU users, but will negatively impact
+# a minority whose default GPU is their dGPU instead of iGPU. These users will
+# need to override the desktop file to remove/unset the key,
+# or run Cemu with the environment variable DRI_PRIME=0.
+# Also set a similar KDE-specific key.
+# See <https://github.com/ValveSoftware/steam-for-linux/issues/7089>
 desktop-file-install \
     --dir=%{buildroot}%{_datadir}/applications \
     --set-key=PrefersNonDefaultGPU \
+    --set-value=true \
+    --set-key=X-KDE-RunOnDiscreteGpu=true \
     --set-value=true \
     dist/linux/%{rdns}.desktop
 
