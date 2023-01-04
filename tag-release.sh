@@ -17,10 +17,23 @@ printf '%-25s:  %s\n' \
 	'Version-Release (no dist)' "${vr_nodist}" \
 	'Normalised for git' "${git_tag}"
 
-echo 'Tagging HEAD...'
-if git tag "${git_tag}"; then
-	# Copy to clipboard
-	xclip -selection clipboard -rmlastnl <<<"${git_tag}"
-	echo 'Copied tag to clipboard.'
-	echo 'Pushing the tag will trigger a rebuild on Copr.'
+echo
+read -rp 'Tag now? [y/N]: '
+if [[ "${REPLY}" =~ ^[yY] ]]; then
+	if git tag "${git_tag}"; then
+		# Copy to clipboard
+		xclip -selection clipboard -rmlastnl <<<"${git_tag}" &&
+		echo 'Copied tag to clipboard.'
+
+		echo
+		echo 'Pushing the tag will trigger a rebuild on Copr.'
+		read -rp 'Push now? [y/N]: '
+		if [[ "${REPLY}" =~ ^[+1yY] ]]; then
+			git push origin "${git_tag}"
+		else
+			echo 'Aborted.'
+		fi
+	fi
+else
+	echo 'Aborted.'
 fi
