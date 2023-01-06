@@ -43,9 +43,9 @@ Only [report upstream](https://github.com/cemu-project/Cemu/issues) if you can r
 
 ## For packagers
 
-TODO: document glslang workaround for Copr. Breaks local builds. See spec file
-
-Automatic rebuilds on Copr are triggered via webhook on branch/tag creation
+Automatic rebuilds on Copr are triggered via webhook on branch/tag creation.
+I've set the Copr package's committish to `main` so only tags on main should
+trigger it.
 
 ## License
 
