@@ -28,7 +28,7 @@ if [[ "${REPLY}" =~ ^[yY] ]]; then
 		echo
 		echo 'Pushing the tag will trigger a rebuild on Copr.'
 		read -rp 'Push now? [y/N]: '
-		if [[ "${REPLY}" =~ ^[+1yY] ]]; then
+		if [[ "${REPLY}" =~ ^[yY] ]]; then
 			git push origin "${git_tag}"
 		else
 			echo 'Aborted.'
