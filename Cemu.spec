@@ -118,6 +118,9 @@ rm -rf dependencies/%{za_name}
 tar -xzf %{SOURCE2} -C dependencies
 mv dependencies/%{za_name}-%{za_commit} dependencies/%{za_name}
 
+# Remove unused bundled libs
+rm -rf dependencies/{DirectX_2010,Vulkan-Headers,cubeb,vcpkg,vcpkg_overlay_ports}
+
 # CMake can't get the hash using git at build time
 # because the source tarball doesn't include the .git dir.
 sed -i -e 's/${GIT_HASH}/%{snapshot}/' CMakeLists.txt
