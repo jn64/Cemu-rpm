@@ -37,7 +37,7 @@ Source2:        https://github.com/Exzap/%{za_name}/archive/%{za_commit}/%{za_na
 Patch0:         00-Cemu-fmt-not-header-only.patch
 
 # Keep this section in sync with upstream build instructions
-# <https://github.com/cemu-project/Cemu/blob/fca7f5dfe4dc6c7293183922c964713b55017fd5/BUILD.md#for-fedora-and-derivatives>
+# <https://github.com/cemu-project/Cemu/blob/1cf72265cd31a15a8c6afce140463dac9917b9fb/BUILD.md#for-fedora-and-derivatives>
 BuildRequires:  clang
 BuildRequires:  cmake >= 3.21.1
 BuildRequires:  cubeb-devel
@@ -50,25 +50,26 @@ BuildRequires:  libsecret-devel
 BuildRequires:  nasm
 BuildRequires:  ninja-build
 BuildRequires:  perl-core
-# Only needed for vcpkg build
+# Only needed for vcpkg's wxWidgets <https://github.com/cemu-project/Cemu/issues/24>
 #BuildRequires:  systemd-devel
 BuildRequires:  zlib-devel
 
-# This section replaces vcpkg
-BuildRequires:  SDL2-devel
+# This section replaces vcpkg / other bundled libs
+BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  boost-devel
-BuildRequires:  fmt-devel >= 9.1
-BuildRequires:  glm-devel
+BuildRequires:  pkgconfig(fmt) >= 9.1
+BuildRequires:  cmake(glm)
 BuildRequires:  glslang-devel
-BuildRequires:  libcurl-devel
-BuildRequires:  libzip-devel
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(libzip)
 BuildRequires:  libzip-tools
-BuildRequires:  libzstd-devel
-BuildRequires:  openssl-devel
-BuildRequires:  pugixml-devel
-BuildRequires:  rapidjson-devel
+BuildRequires:  pkgconfig(libzstd)
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(pugixml)
+BuildRequires:  pkgconfig(RapidJSON)
 BuildRequires:  vulkan-headers
 BuildRequires:  wxGTK-devel >= 3.2
+# Not available in Fedora: ZArchive, imgui, ih264d, discord-rpc
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
