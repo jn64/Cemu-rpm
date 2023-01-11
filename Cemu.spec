@@ -32,9 +32,10 @@ Source2:        https://github.com/Exzap/%{za_name}/archive/%{za_commit}/%{za_na
 
 # Use fmt in non-header-only mode
 # Not applicable to upstream which uses vcpkg fmt
-# Patch based on cemu-git Arch package
-# <https://aur.archlinux.org/cgit/aur.git/commit/?h=cemu-git&id=af25b06aeeb1c89c09359382ac25266d4bb2859e>
-Patch0:         00-Cemu-fmt-not-header-only.patch
+Patch0:         0001-Use-fmt-in-non-header-only-mode.patch
+# Disable auto-update checkboxes and menu item
+# Not applicable to upstream
+Patch1:         0002-Disable-auto-update-checkboxes-and-menu-item.patch
 
 # Keep this section in sync with upstream build instructions
 # <https://github.com/cemu-project/Cemu/blob/1cf72265cd31a15a8c6afce140463dac9917b9fb/BUILD.md#for-fedora-and-derivatives>
@@ -97,7 +98,7 @@ Cemu is actively developed with new features and fixes to increase
 compatibility, convenience, and usability.
 
 %prep
-%autosetup -n %{name}-%{commit} -p0
+%autosetup -n %{name}-%{commit} -p1
 
 # imgui "submodule"
 rm -rf dependencies/%{im_name}

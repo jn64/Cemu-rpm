@@ -1,0 +1,26 @@
+From a8880ce9aa176de25918ab17530ffd50394aaad4 Mon Sep 17 00:00:00 2001
+From: Justin Koh <j@ustink.org>
+Date: Wed, 11 Jan 2023 22:24:56 +0800
+Subject: [PATCH] Use fmt in non-header-only mode
+
+Patch based on cemu-git Arch package
+<https://aur.archlinux.org/cgit/aur.git/commit/?h=cemu-git&id=af25b06aeeb1c89c09359382ac25266d4bb2859e>
+---
+ src/Common/precompiled.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/Common/precompiled.h b/src/Common/precompiled.h
+index f17d47d..d0f156e 100644
+--- a/src/Common/precompiled.h
++++ b/src/Common/precompiled.h
+@@ -5,7 +5,6 @@
+ #include "version.h"
+ #include "platform.h"
+ 
+-#define FMT_HEADER_ONLY
+ #define FMT_USE_GRISU 1
+ #include <fmt/core.h>
+ #include <fmt/format.h>
+-- 
+2.39.0
+
