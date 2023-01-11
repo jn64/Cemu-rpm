@@ -69,7 +69,6 @@ BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(RapidJSON)
 BuildRequires:  vulkan-headers
 BuildRequires:  wxGTK-devel >= 3.2
-# Not available in Fedora: ZArchive, imgui, ih264d, discord-rpc
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -87,6 +86,16 @@ BuildRequires:  Cemu-glslang-cmake-workaround
 %endif
 
 Provides:       cemu = %{version}-%{release}
+
+# Bundled libs (all not available in Fedora)
+# ZArchive 0.1.2
+Provides:       bundled(ZArchive) = 0.1.2
+# imgui - between 1.88 and 1.89
+Provides:       bundled(imgui) = 1.88
+# discord-rpc - after 3.4.0 <https://github.com/discord/discord-rpc/commit/963aa9f3e5ce81a4682c6ca3d136cddda614db33>
+Provides:       bundled(discord-rpc) = 3.4.0
+# ih264d from Android Open Source Project, modified by Cemu
+Provides:       bundled(ih264d)
 
 %description
 Cemu is a cross-platform emulator for the Nintendo Wii U game console.
