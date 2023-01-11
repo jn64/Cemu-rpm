@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/33bd10b4e0b9c27881fa7d6bf38908791f84d3b2
-%global commit 33bd10b4e0b9c27881fa7d6bf38908791f84d3b2
-%global commit_date 20221228
+# https://github.com/cemu-project/Cemu/commit/1cf72265cd31a15a8c6afce140463dac9917b9fb
+%global commit 1cf72265cd31a15a8c6afce140463dac9917b9fb
+%global commit_date 20230106
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 %global snapshot %{commit_date}git%{short_commit}
 
@@ -20,7 +20,7 @@
 
 Name:           Cemu
 Version:        2.0^%{snapshot}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Wii U emulator
 
 License:        MPL-2.0
@@ -183,6 +183,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Wed Jan 11 2023 Justin Koh <j@ustink.org> - 2.0^20230106git1cf7226-1
+- Update to 1cf7226
+- Patch to show package version in cli --version
+
 * Tue Jan 03 2023 Justin Koh <j@ustink.org> - 2.0^20221228git33bd10b-2
 - Add conditionals so same spec file can be used for F37 and rawhide/F38
 
