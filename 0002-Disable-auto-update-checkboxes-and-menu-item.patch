@@ -1,0 +1,55 @@
+From e7d28f9e5c70446c131ddca0432492533b55dc9f Mon Sep 17 00:00:00 2001
+From: Justin Koh <j@ustink.org>
+Date: Wed, 11 Jan 2023 22:19:31 +0800
+Subject: [PATCH] Disable auto-update checkboxes and menu item
+
+Checkboxes in General Settings and Getting Started dialog,
+and the Help menu item.
+
+It doesn't seem to work for Linux, and wouldn't work for packages
+with different versioning anyway.
+---
+ src/gui/GeneralSettings2.cpp     | 1 +
+ src/gui/GettingStartedDialog.cpp | 1 +
+ src/gui/MainWindow.cpp           | 1 +
+ 3 files changed, 3 insertions(+)
+
+diff --git a/src/gui/GeneralSettings2.cpp b/src/gui/GeneralSettings2.cpp
+index 08d020f..c75ac9f 100644
+--- a/src/gui/GeneralSettings2.cpp
++++ b/src/gui/GeneralSettings2.cpp
+@@ -164,6 +164,7 @@ wxPanel* GeneralSettings2::AddGeneralPage(wxNotebook* notebook)
+ 			m_auto_update = new wxCheckBox(box, wxID_ANY, _("Automatically check for updates"));
+ 			m_auto_update->SetToolTip(_("Automatically checks for new cemu versions on startup"));
+ 			second_row->Add(m_auto_update, 0, botflag, 5);
++			m_auto_update->Disable();
+ 			second_row->AddSpacer(10);
+ 			m_save_screenshot = new wxCheckBox(box, wxID_ANY, _("Save screenshot"));
+ 			m_save_screenshot->SetToolTip(_("Pressing the screenshot key (F12) will save a screenshot directly to the screenshots folder"));
+diff --git a/src/gui/GettingStartedDialog.cpp b/src/gui/GettingStartedDialog.cpp
+index 30e5e55..b425cb6 100644
+--- a/src/gui/GettingStartedDialog.cpp
++++ b/src/gui/GettingStartedDialog.cpp
+@@ -146,6 +146,7 @@ wxPanel* GettingStartedDialog::CreatePage2()
+ 
+ 		m_update = new wxCheckBox(sizer->GetStaticBox(), wxID_ANY, _("Automatically check for updates"));
+ 		option_sizer->Add(m_update, 0, wxALL, 5);
++		m_update->Disable();
+ 
+ 		sizer->Add(option_sizer, 1, wxEXPAND, 5);
+ 		page2_sizer->Add(sizer, 0, wxALL | wxEXPAND, 5);
+diff --git a/src/gui/MainWindow.cpp b/src/gui/MainWindow.cpp
+index 4c94365..ef58ff7 100644
+--- a/src/gui/MainWindow.cpp
++++ b/src/gui/MainWindow.cpp
+@@ -2180,6 +2180,7 @@ void MainWindow::RecreateMenu()
+ 	//helpMenu->Append(MAINFRAME_MENU_ID_HELP_WEB, wxT("&Visit website"));
+ 	//helpMenu->AppendSeparator();
+ 	m_check_update_menu = helpMenu->Append(MAINFRAME_MENU_ID_HELP_UPDATE, _("&Check for updates"));
++	m_check_update_menu->Enable(false);
+ 	helpMenu->Append(MAINFRAME_MENU_ID_HELP_GETTING_STARTED, _("&Getting started"));
+ 	helpMenu->AppendSeparator();
+ 	helpMenu->Append(MAINFRAME_MENU_ID_HELP_ABOUT, _("&About Cemu"));
+-- 
+2.39.0
+
