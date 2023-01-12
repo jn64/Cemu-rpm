@@ -36,6 +36,7 @@ Patch0:         0001-Use-fmt-in-non-header-only-mode.patch
 # Disable auto-update checkboxes and menu item
 # Not applicable to upstream
 Patch1:         0002-Disable-auto-update-checkboxes-and-menu-item.patch
+Patch2:         0003-Always-show-Open-Cemu-folder-menu-item.patch
 
 # Keep this section in sync with upstream build instructions
 # <https://github.com/cemu-project/Cemu/blob/1cf72265cd31a15a8c6afce140463dac9917b9fb/BUILD.md#for-fedora-and-derivatives>

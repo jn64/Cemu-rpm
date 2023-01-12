@@ -1,0 +1,36 @@
+From 5ee4e36348f4fd54ca8e1778d48dc4f144936775 Mon Sep 17 00:00:00 2001
+From: Justin Koh <j@ustink.org>
+Date: Thu, 12 Jan 2023 13:03:30 +0800
+Subject: [PATCH] Always show "Open Cemu folder" menu item
+
+It shouldn't be hidden when a game is launched.
+---
+ src/gui/MainWindow.cpp | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/gui/MainWindow.cpp b/src/gui/MainWindow.cpp
+index 4c94365..707fe2c 100644
+--- a/src/gui/MainWindow.cpp
++++ b/src/gui/MainWindow.cpp
+@@ -2005,8 +2005,6 @@ void MainWindow::RecreateMenu()
+ 				break;
+ 		}
+ 		m_fileMenuSeparator1 = m_fileMenu->AppendSeparator();
+-		m_fileMenu->Append(MAINFRAME_MENU_ID_FILE_OPEN_CEMU_FOLDER, _("&Open Cemu folder"));
+-		m_fileMenu->AppendSeparator();
+ 	}
+ 	else
+ 	{
+@@ -2016,6 +2014,9 @@ void MainWindow::RecreateMenu()
+ #endif
+ 	}
+ 
++	m_fileMenu->Append(MAINFRAME_MENU_ID_FILE_OPEN_CEMU_FOLDER, _("&Open Cemu folder"));
++	m_fileMenu->AppendSeparator();
++
+ 	m_exitMenuItem = m_fileMenu->Append(MAINFRAME_MENU_ID_FILE_EXIT, _("&Exit"));
+ 	m_menuBar->Append(m_fileMenu, _("&File"));
+ 	// options->account submenu
+-- 
+2.39.0
+
