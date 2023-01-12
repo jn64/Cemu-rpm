@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/1cf72265cd31a15a8c6afce140463dac9917b9fb
-%global commit 1cf72265cd31a15a8c6afce140463dac9917b9fb
-%global commit_date 20230106
+# https://github.com/cemu-project/Cemu/commit/9d55f46eb1bbd53ae7db27058e820ce209b77aff
+%global commit 9d55f46eb1bbd53ae7db27058e820ce209b77aff
+%global commit_date 20230113
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 %global snapshot %{commit_date}git%{short_commit}
 
@@ -196,6 +196,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Fri Jan 13 2023 Justin Koh <j@ustink.org> - 2.0^20230113git9d55f46-1
+- Update to 9d55f46
+- Declare bundled libs
+- Patch to disable auto-update (which was non-functional)
+
 * Wed Jan 11 2023 Justin Koh <j@ustink.org> - 2.0^20230106git1cf7226-1
 - Update to 1cf7226
 - Patch to show package version in cli --version
