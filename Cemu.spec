@@ -42,18 +42,18 @@ Patch1:         0002-Disable-auto-update-checkboxes-and-menu-item.patch
 BuildRequires:  clang
 BuildRequires:  cmake >= 3.21.1
 BuildRequires:  cubeb-devel
-BuildRequires:  freeglut-devel
+BuildRequires:  pkgconfig(glut)
 #BuildRequires:  git
-BuildRequires:  gtk3-devel
+BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  kernel-headers
-BuildRequires:  libgcrypt-devel
-BuildRequires:  libsecret-devel
+BuildRequires:  pkgconfig(libgcrypt)
+BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  nasm
 BuildRequires:  ninja-build
 BuildRequires:  perl-core
 # Only needed for vcpkg's wxWidgets <https://github.com/cemu-project/Cemu/issues/24>
 #BuildRequires:  systemd-devel
-BuildRequires:  zlib-devel
+BuildRequires:  pkgconfig(zlib)
 
 # This section replaces vcpkg / other bundled libs
 BuildRequires:  pkgconfig(sdl2)
