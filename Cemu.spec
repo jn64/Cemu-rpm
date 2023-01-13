@@ -89,13 +89,12 @@ BuildRequires:  Cemu-glslang-cmake-workaround
 Provides:       cemu = %{version}-%{release}
 
 # Bundled libs (all not available in Fedora)
-# ZArchive 0.1.2
 Provides:       bundled(ZArchive) = 0.1.2
-# imgui - between 1.88 and 1.89
-Provides:       bundled(imgui) = 1.88
-# discord-rpc - after 3.4.0 <https://github.com/discord/discord-rpc/commit/963aa9f3e5ce81a4682c6ca3d136cddda614db33>
-Provides:       bundled(discord-rpc) = 3.4.0
+Provides:       bundled(imgui) = 1.88^20221006git8a44c31
+# <https://github.com/discord/discord-rpc/commit/963aa9f3e5ce81a4682c6ca3d136cddda614db33>
+Provides:       bundled(discord-rpc) = 3.4.0^20200921git963aa9f
 # ih264d from Android Open Source Project, modified by Cemu
+# <https://cemu.info/oss/ih264d.zip>
 Provides:       bundled(ih264d)
 
 %description
