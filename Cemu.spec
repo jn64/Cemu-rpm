@@ -1,18 +1,18 @@
 # https://github.com/cemu-project/Cemu/commit/9d55f46eb1bbd53ae7db27058e820ce209b77aff
-%global commit 9d55f46eb1bbd53ae7db27058e820ce209b77aff
-%global commit_date 20230113
-%global short_commit %(c=%{commit}; echo ${c:0:7})
-%global snapshot %{commit_date}git%{short_commit}
+%global commit        9d55f46eb1bbd53ae7db27058e820ce209b77aff
+%global commit_date   20230113
+%global short_commit  %(c=%{commit}; echo ${c:0:7})
+%global snapshot      %{commit_date}git%{short_commit}
 
 # https://github.com/ocornut/imgui/commit/8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
-%global im_name imgui
-%global im_url https://github.com/ocornut/%{im_name}
-%global im_commit 8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
+%global im_name       imgui
+%global im_url        https://github.com/ocornut/%{im_name}
+%global im_commit     8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
 
 # https://github.com/Exzap/ZArchive/commit/d2c717730092c7bf8cbb033b12fd4001b7c4d932
-%global za_name ZArchive
-%global za_url https://github.com/Exzap/%{za_name}
-%global za_commit d2c717730092c7bf8cbb033b12fd4001b7c4d932
+%global za_name       ZArchive
+%global za_url        https://github.com/Exzap/%{za_name}
+%global za_commit     d2c717730092c7bf8cbb033b12fd4001b7c4d932
 
 %global rdns info.cemu.Cemu
 
@@ -42,34 +42,34 @@ Patch1:         0002-Disable-auto-update-checkboxes-and-menu-item.patch
 BuildRequires:  clang
 BuildRequires:  cmake >= 3.21.1
 BuildRequires:  cubeb-devel
-BuildRequires:  pkgconfig(glut)
 #BuildRequires:  git
-BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  kernel-headers
-BuildRequires:  pkgconfig(libgcrypt)
-BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  nasm
 BuildRequires:  ninja-build
 BuildRequires:  perl-core
 # Only needed for vcpkg's wxWidgets <https://github.com/cemu-project/Cemu/issues/24>
 #BuildRequires:  systemd-devel
+BuildRequires:  pkgconfig(glut)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libgcrypt)
+BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(zlib)
 
 # This section replaces vcpkg / other bundled libs
-BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  boost-devel
-BuildRequires:  pkgconfig(fmt) >= 9.1
-BuildRequires:  cmake(glm)
 BuildRequires:  glslang-devel
+BuildRequires:  libzip-tools
+BuildRequires:  vulkan-headers
+BuildRequires:  wxGTK-devel >= 3.2
+BuildRequires:  cmake(glm)
+BuildRequires:  pkgconfig(fmt) >= 9.1
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libzip)
-BuildRequires:  libzip-tools
 BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(RapidJSON)
-BuildRequires:  vulkan-headers
-BuildRequires:  wxGTK-devel >= 3.2
+BuildRequires:  pkgconfig(sdl2)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
