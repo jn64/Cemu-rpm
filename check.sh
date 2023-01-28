@@ -16,4 +16,4 @@ git ls-remote --tags "${remote}" | grep -E 'refs/tags/v2.0-[[:digit:]]+' | LC_CO
 
 echo
 echo 'Current packaged commit:'
-grep -Po '^%global commit \K.+' Cemu.spec
+grep -Po '^%global commit +\K.+' Cemu.spec
