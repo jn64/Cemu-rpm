@@ -195,9 +195,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
-* Sat Jan 28 2023 Justin Koh <j@ustink.org> - 2.0^20230113git9a4f945-1
+* Sat Jan 28 2023 Justin Koh <j@ustink.org> - 2.0^20230127git9a4f945-1
 - Update to 9a4f945 / 2.0-26 (Experimental)
-  * Improvements to DS VC, Unity-based games, BotW performance (#631)
+- Improvements to DS VC, Unity-based games, BotW performance (#631)
 
 * Fri Jan 13 2023 Justin Koh <j@ustink.org> - 2.0^20230113git9d55f46-1
 - Update to 9d55f46
