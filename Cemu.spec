@@ -99,11 +99,7 @@ Provides:       bundled(ih264d) = 0^20221207git2c81d24
 
 %description
 Cemu is a cross-platform emulator for the Nintendo Wii U game console.
-It is written in C/C++, and is able to run most Wii U games and
-homebrew in a playable state.
-
-Cemu is actively developed with new features and fixes to increase
-compatibility, convenience, and usability.
+It is able to run most Wii U games and homebrew in a playable state.
 
 %prep
 %autosetup -n %{name}-%{commit} -p1
