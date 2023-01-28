@@ -94,8 +94,8 @@ Provides:       bundled(imgui) = 1.88^20221006git8a44c31
 # <https://github.com/discord/discord-rpc/commit/963aa9f3e5ce81a4682c6ca3d136cddda614db33>
 Provides:       bundled(discord-rpc) = 3.4.0^20200921git963aa9f
 # ih264d from Android Open Source Project, modified by Cemu
-# <https://cemu.info/oss/ih264d.zip>
-Provides:       bundled(ih264d)
+# <https://github.com/cemu-project/Cemu/tree/2c81d240a5b065d8cf4c555754c4bfeaf42c826c/dependencies/ih264d>
+Provides:       bundled(ih264d) = 0^20221207git2c81d24
 
 %description
 Cemu is a cross-platform emulator for the Nintendo Wii U game console.
