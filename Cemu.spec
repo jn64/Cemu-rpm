@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/9d55f46eb1bbd53ae7db27058e820ce209b77aff
-%global commit        9d55f46eb1bbd53ae7db27058e820ce209b77aff
-%global commit_date   20230113
+# https://github.com/cemu-project/Cemu/commit/9a4f945f33e57a4b45af9892647a72362123f642
+%global commit        9a4f945f33e57a4b45af9892647a72362123f642
+%global commit_date   20230127
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -195,6 +195,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Sat Jan 28 2023 Justin Koh <j@ustink.org> - 2.0^20230113git9a4f945-1
+- Update to 9a4f945 / 2.0-26 (Experimental)
+  * Improvements to DS VC, Unity-based games, BotW performance (#631)
+
 * Fri Jan 13 2023 Justin Koh <j@ustink.org> - 2.0^20230113git9d55f46-1
 - Update to 9d55f46
 - Declare bundled libs
@@ -203,6 +207,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 * Wed Jan 11 2023 Justin Koh <j@ustink.org> - 2.0^20230106git1cf7226-1
 - Update to 1cf7226
 - Patch to show package version in cli --version
+- Use pkgconfig/cmake provides where possible
 
 * Tue Jan 03 2023 Justin Koh <j@ustink.org> - 2.0^20221228git33bd10b-2
 - Add conditionals so same spec file can be used for F37 and rawhide/F38
