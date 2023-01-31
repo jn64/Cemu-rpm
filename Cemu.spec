@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/9a4f945f33e57a4b45af9892647a72362123f642
-%global commit        9a4f945f33e57a4b45af9892647a72362123f642
-%global commit_date   20230127
+# https://github.com/cemu-project/Cemu/commit/f3ff919be25189dcf4a0120b48360bb415d7b86c
+%global commit        f3ff919be25189dcf4a0120b48360bb415d7b86c
+%global commit_date   20230129
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -191,6 +191,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Tue Jan 31 2023 Justin Koh <j@ustink.org> - 2.0^20230129gitf3ff919-1
+- Update to f3ff919
+
 * Sat Jan 28 2023 Justin Koh <j@ustink.org> - 2.0^20230127git9a4f945-1
 - Update to 9a4f945 / 2.0-26 (Experimental)
 - Improvements to DS VC, Unity-based games, BotW performance (#631)
