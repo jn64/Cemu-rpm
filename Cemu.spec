@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/f3ff919be25189dcf4a0120b48360bb415d7b86c
-%global commit        f3ff919be25189dcf4a0120b48360bb415d7b86c
-%global commit_date   20230129
+# https://github.com/cemu-project/Cemu/commit/cbb79fd34ce99155a48d6e6ad9cd538b03045d03
+%global commit        cbb79fd34ce99155a48d6e6ad9cd538b03045d03
+%global commit_date   20230218
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -191,6 +191,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Sat Feb 18 2023 Justin Koh <j@ustink.org> - 2.0^20230218gitcbb79fd-1
+- Update to cbb79fd / 2.0-27 (Experimental)
+
 * Tue Jan 31 2023 Justin Koh <j@ustink.org> - 2.0^20230129gitf3ff919-1
 - Update to f3ff919
 
