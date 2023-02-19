@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/cbb79fd34ce99155a48d6e6ad9cd538b03045d03
-%global commit        cbb79fd34ce99155a48d6e6ad9cd538b03045d03
-%global commit_date   20230218
+# https://github.com/cemu-project/Cemu/commit/6d75776b28d03effca49b5eb70afd4af8ab1bff7
+%global commit        6d75776b28d03effca49b5eb70afd4af8ab1bff7
+%global commit_date   20230219
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -191,6 +191,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Sun Feb 19 2023 Justin Koh <j@ustink.org> - 2.0^20230219git6d75776-1
+- Update to 6d75776
+- Fixes #666 - Clicking main window hides shader progress dialog
+
 * Sat Feb 18 2023 Justin Koh <j@ustink.org> - 2.0^20230218gitcbb79fd-1
 - Update to cbb79fd / 2.0-27 (Experimental)
 
