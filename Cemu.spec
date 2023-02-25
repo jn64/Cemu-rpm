@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/80b1c50b506bb05aa4e65ef8e93781db93d6dd92
-%global commit        80b1c50b506bb05aa4e65ef8e93781db93d6dd92
-%global commit_date   20230222
+# https://github.com/cemu-project/Cemu/commit/4c697d37558538a8577262e0b74bd18a1bb9f239
+%global commit        4c697d37558538a8577262e0b74bd18a1bb9f239
+%global commit_date   20230224
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -21,8 +21,7 @@
 Name:           Cemu
 Version:        2.0^%{snapshot}
 Release:        1%{?dist}
-Summary:        Wii U emulator
-
+Summary:        A Nintendo Wii U emulator
 License:        MPL-2.0
 URL:            https://cemu.info
 
@@ -73,8 +72,6 @@ BuildRequires:  pkgconfig(sdl2)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-
-# For the version hash workaround
 BuildRequires:  sed
 
 # Workaround for missing glslangConfig.cmake file (1/2)
@@ -117,6 +114,7 @@ mv dependencies/%{za_name}-%{za_commit} dependencies/%{za_name}
 # Remove unused bundled libs
 rm -rf dependencies/{DirectX_2010,Vulkan-Headers,cubeb,vcpkg,vcpkg_overlay_ports}
 
+# Set Cemu version to the package snapshot version
 # CMake can't get the hash using git at build time
 # because the source tarball doesn't include the .git dir.
 sed -i -e 's/${GIT_HASH}/%{snapshot}/' CMakeLists.txt
@@ -164,10 +162,10 @@ cp -rp -t %{buildroot}%{_datadir}/%{name} bin/gameProfiles bin/resources
 install -Dpm 0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps dist/linux/%{rdns}.png
 install -Dpm 0644 -t %{buildroot}%{_metainfodir} dist/linux/%{rdns}.metainfo.xml
 # Set PrefersNonDefaultGPU
-# It should benefit the majority of dual-GPU users, but will negatively impact
-# a minority whose default GPU is their dGPU instead of iGPU. These users will
-# need to override the desktop file to remove/unset the key,
-# or run Cemu with the environment variable DRI_PRIME=0.
+# Helps the majority of dual-GPU users, but will be wrong for those whose
+# default GPU is their dGPU instead of iGPU. These users will need to
+# override the desktop file to remove/unset the key, or run Cemu with
+# the environment variable DRI_PRIME=0.
 # Also set a similar KDE-specific key.
 # See <https://github.com/ValveSoftware/steam-for-linux/issues/7089>
 desktop-file-install \
@@ -191,6 +189,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Sat Feb 25 2023 Justin Koh <j@ustink.org> - 2.0^20230224git4c697d3-1
+- Update to 4c697d3 - Add setting to inhibit screensaver
+
 * Thu Feb 23 2023 Justin Koh <j@ustink.org> - 2.0^20230222git80b1c50-1
 - Update to 80b1c50 / 2.0-28 (Experimental)
 
