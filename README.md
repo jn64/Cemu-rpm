@@ -7,7 +7,9 @@ This is an rpm package of Cemu for Fedora Linux.
 
 [Built packages are available on Copr jn64/Cemu](https://copr.fedorainfracloud.org/coprs/jn64/Cemu/).
 
-Only Fedora 37 builds are available currently. F36 is not supported due to older libs.
+Only Fedora 37+ builds are available. F36 is not supported due to older libs.
+
+**Help needed**: if you are able to test F38 builds ahead of F38 release (~2023-04-25), please open an issue with your feedback.
 
 ### Installation
 
@@ -36,10 +38,10 @@ Everything else *should* be the same as upstream builds, or it's a bug with the 
 Please include the package version in your report. You can obtain it by running:
 
 ```shell
-$ dnf -qC rq --installed --nvr Cemu
+$ rpm -q Cemu
 ```
 
-Only [report upstream](https://github.com/cemu-project/Cemu/issues) if you can reproduce the issue with upstream builds (AppImage) or by building it yourself.
+Only [report upstream](https://github.com/cemu-project/Cemu/issues) if you can reproduce the issue with upstream builds.
 
 ## For packagers
 
