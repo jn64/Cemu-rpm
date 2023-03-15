@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/4c697d37558538a8577262e0b74bd18a1bb9f239
-%global commit        4c697d37558538a8577262e0b74bd18a1bb9f239
-%global commit_date   20230224
+# https://github.com/cemu-project/Cemu/commit/3acdd47eaf080293ba61f3d7d55bfba4be574270
+%global commit        3acdd47eaf080293ba61f3d7d55bfba4be574270
+%global commit_date   20230311
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -189,6 +189,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Wed Mar 15 2023 Justin Koh <j@ustink.org> - 2.0^20230311git3acdd47-1
+- Update to 3acdd47 / 2.0-29 (Experimental)
+
 * Sat Feb 25 2023 Justin Koh <j@ustink.org> - 2.0^20230224git4c697d3-1
 - Update to 4c697d3 - Add setting to inhibit screensaver
 
