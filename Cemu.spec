@@ -1,13 +1,16 @@
 # https://github.com/cemu-project/Cemu/commit/3acdd47eaf080293ba61f3d7d55bfba4be574270
-%global commit        3acdd47eaf080293ba61f3d7d55bfba4be574270
-%global commit_date   20230311
+%global commit        aa63a6a36e3a3c2daa9ad94406a1290efdb6fbf9
+%global commit_date   20230329
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
 # https://github.com/ocornut/imgui/commit/8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
 %global im_name       imgui
 %global im_url        https://github.com/ocornut/%{im_name}
-%global im_commit     8a44c31c95c8e0217f6e1fc814cbbbcca4981f14
+%global im_commit     f65bcf481ab34cd07d3909aab1479f409fa79f2f
+%global im_date       20230323
+%global im_short      %(c=%{im_commit}; echo ${c:0:7})
+%global im_snapshot   %{im_date}git%{im_short}
 
 # https://github.com/Exzap/ZArchive/commit/d2c717730092c7bf8cbb033b12fd4001b7c4d932
 %global za_name       ZArchive
@@ -87,7 +90,8 @@ Provides:       cemu = %{version}-%{release}
 
 # Bundled libs (all not available in Fedora)
 Provides:       bundled(ZArchive) = 0.1.2
-Provides:       bundled(imgui) = 1.88^20221006git8a44c31
+# 1.89.5 WIP
+Provides:       bundled(imgui) = 1.89.5~%{im_snapshot}
 # <https://github.com/discord/discord-rpc/commit/963aa9f3e5ce81a4682c6ca3d136cddda614db33>
 Provides:       bundled(discord-rpc) = 3.4.0^20200921git963aa9f
 # ih264d from Android Open Source Project, modified by Cemu
@@ -189,6 +193,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Wed Mar 29 2023 Justin Koh <j@ustink.org> - 2.0^20230329gitaa63a6a-1
+- Update to aa63a6a / 2.0-30 (Experimental)
+
 * Wed Mar 15 2023 Justin Koh <j@ustink.org> - 2.0^20230311git3acdd47-1
 - Update to 3acdd47 / 2.0-29 (Experimental)
 
