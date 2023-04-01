@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/3acdd47eaf080293ba61f3d7d55bfba4be574270
-%global commit        aa63a6a36e3a3c2daa9ad94406a1290efdb6fbf9
-%global commit_date   20230329
+# https://github.com/cemu-project/Cemu/commit/cb9570e2293075944c3461710719ac6a5417ed51
+%global commit        cb9570e2293075944c3461710719ac6a5417ed51
+%global commit_date   20230330
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -193,6 +193,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Sat Apr 01 2023 Justin Koh <j@ustink.org> - 2.0^20230330gitcb9570e-1
+- Update to cb9570e
+- Fixes "Disable screen saver" option (#726)
+
 * Wed Mar 29 2023 Justin Koh <j@ustink.org> - 2.0^20230329gitaa63a6a-1
 - Update to aa63a6a / 2.0-30 (Experimental)
 
