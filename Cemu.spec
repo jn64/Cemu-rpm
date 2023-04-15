@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/cb9570e2293075944c3461710719ac6a5417ed51
-%global commit        cb9570e2293075944c3461710719ac6a5417ed51
-%global commit_date   20230330
+# https://github.com/cemu-project/Cemu/commit/a6e9481b6423d0b73d12a1831af27552293d94d1
+%global commit        a6e9481b6423d0b73d12a1831af27552293d94d1
+%global commit_date   20230415
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -116,7 +116,7 @@ tar -xzf %{SOURCE2} -C dependencies
 mv dependencies/%{za_name}-%{za_commit} dependencies/%{za_name}
 
 # Remove unused bundled libs
-rm -rf dependencies/{DirectX_2010,Vulkan-Headers,cubeb,vcpkg,vcpkg_overlay_ports}
+rm -rf dependencies/{DirectX_2010,Vulkan-Headers,cubeb,vcpkg,vcpkg_overlay_ports,vcpkg_overlay_ports_linux}
 
 # Set Cemu version to the package snapshot version
 # CMake can't get the hash using git at build time
@@ -193,6 +193,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Sat Apr 15 2023 Justin Koh <j@ustink.org> - 2.0^20230415gita6e9481-1
+- Update to a6e9481 / 2.0-33 (Experimental)
+
 * Sat Apr 01 2023 Justin Koh <j@ustink.org> - 2.0^20230330gitcb9570e-1
 - Update to cb9570e
 - Fixes "Disable screen saver" option (#726)
