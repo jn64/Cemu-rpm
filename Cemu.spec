@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/a6e9481b6423d0b73d12a1831af27552293d94d1
-%global commit        a6e9481b6423d0b73d12a1831af27552293d94d1
-%global commit_date   20230415
+# https://github.com/cemu-project/Cemu/commit/e3e167b8ba31a0d4be79fbe226d416a7154c20c9
+%global commit        e3e167b8ba31a0d4be79fbe226d416a7154c20c9
+%global commit_date   20230417
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -127,6 +127,10 @@ _pattern='versionStr = fmt::format("{}.{}-{}{}", EMULATOR_VERSION_LEAD, EMULATOR
 _replace='versionStr = fmt::format("{}.{}-{}{}", EMULATOR_VERSION_LEAD, EMULATOR_VERSION_MAJOR, "%{snapshot}", EMULATOR_VERSION_SUFFIX);'
 sed -i -e "s/${_pattern}/${_replace}/" src/config/LaunchSettings.cpp
 
+# Fix game list icon width
+# <https://aur.archlinux.org/cgit/aur.git/commit/PKGBUILD?h=cemu&id=88db93c8671856964b35308046bf015ee3f7712a>
+sed -i -e '/InsertColumn/s/kListIconWidth/&+8/;/SetColumnWidth/s/last_col_width/&-1/' src/gui/components/wxGameList.cpp
+
 %build
 # Workaround for missing glslangConfig.cmake file (2/2)
 %if 0%{?fedora} == 37
@@ -165,19 +169,8 @@ cp -rp -t %{buildroot}%{_datadir}/%{name} bin/gameProfiles bin/resources
 # Desktop-related files
 install -Dpm 0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps dist/linux/%{rdns}.png
 install -Dpm 0644 -t %{buildroot}%{_metainfodir} dist/linux/%{rdns}.metainfo.xml
-# Set PrefersNonDefaultGPU
-# Helps the majority of dual-GPU users, but will be wrong for those whose
-# default GPU is their dGPU instead of iGPU. These users will need to
-# override the desktop file to remove/unset the key, or run Cemu with
-# the environment variable DRI_PRIME=0.
-# Also set a similar KDE-specific key.
-# See <https://github.com/ValveSoftware/steam-for-linux/issues/7089>
 desktop-file-install \
     --dir=%{buildroot}%{_datadir}/applications \
-    --set-key=PrefersNonDefaultGPU \
-    --set-value=true \
-    --set-key=X-KDE-RunOnDiscreteGpu \
-    --set-value=true \
     dist/linux/%{rdns}.desktop
 
 %check
@@ -193,6 +186,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Wed Apr 19 2023 Justin Koh <j@ustink.org> - 2.0^20230417gite3e167b-1
+- Update to e3e167b
+- Patch to fix icon column width
+
 * Sat Apr 15 2023 Justin Koh <j@ustink.org> - 2.0^20230415gita6e9481-1
 - Update to a6e9481 / 2.0-33 (Experimental)
 
