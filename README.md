@@ -9,8 +9,6 @@ This is an rpm package of Cemu for Fedora Linux.
 
 Only Fedora 37+ builds are available. F36 is not supported due to older libs.
 
-**Help needed**: if you are able to test F38 builds ahead of F38 release (~2023-04-25), please open an issue with your feedback.
-
 ### Installation
 
 ```shell

@@ -19,11 +19,16 @@
 
 %global rdns info.cemu.Cemu
 
+# Upstream prefers clang, but there may be an issue when compiled with clang 16.
+# F37 has clang 15. F38 has clang 16. <https://packages.fedoraproject.org/pkgs/clang/clang/>
+# So try using gcc on F38.
+%if 0%{?fedora} == 37
 %global toolchain clang
+%endif
 
 Name:           Cemu
 Version:        2.0^%{snapshot}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Nintendo Wii U emulator
 License:        MPL-2.0
 URL:            https://cemu.info
@@ -41,7 +46,11 @@ Patch1:         0002-Disable-auto-update-checkboxes-and-menu-item.patch
 
 # Keep this section in sync with upstream build instructions
 # <https://github.com/cemu-project/Cemu/blob/1cf72265cd31a15a8c6afce140463dac9917b9fb/BUILD.md#for-fedora-and-derivatives>
+%if 0%{?fedora} == 37
 BuildRequires:  clang
+%else
+BuildRequires:  gcc gcc++
+%endif
 BuildRequires:  cmake >= 3.21.1
 BuildRequires:  cubeb-devel
 #BuildRequires:  git
@@ -143,6 +152,7 @@ export glslang_DIR
 %global optflags %{optflags} -fPIC
 %global build_ldflags %{build_ldflags} -pie
 
+
 # BUILD_SHARED_LIBS=OFF is to fix this error:
 #    At least one of these targets is not a STATIC_LIBRARY. Cyclic dependencies are allowed only among static libraries.
 %cmake \
@@ -186,8 +196,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Wed Apr 19 2023 Justin Koh <j@ustink.org> - 2.0^20230417gite3e167b-2
+- Use gcc on F38. See <https://github.com/jn64/Cemu-rpm/issues/13>
+
 * Wed Apr 19 2023 Justin Koh <j@ustink.org> - 2.0^20230417gite3e167b-1
-- Update to e3e167b
+- Update to e3e167b / 2.0-34 (Experimental)
 - Patch to fix icon column width
 
 * Sat Apr 15 2023 Justin Koh <j@ustink.org> - 2.0^20230415gita6e9481-1
