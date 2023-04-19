@@ -49,7 +49,7 @@ Patch1:         0002-Disable-auto-update-checkboxes-and-menu-item.patch
 %if 0%{?fedora} == 37
 BuildRequires:  clang
 %else
-BuildRequires:  gcc gcc++
+BuildRequires:  gcc gcc-c++
 %endif
 BuildRequires:  cmake >= 3.21.1
 BuildRequires:  cubeb-devel
