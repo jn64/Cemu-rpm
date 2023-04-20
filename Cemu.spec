@@ -1,6 +1,6 @@
-# https://github.com/cemu-project/Cemu/commit/e3e167b8ba31a0d4be79fbe226d416a7154c20c9
-%global commit        e3e167b8ba31a0d4be79fbe226d416a7154c20c9
-%global commit_date   20230417
+# https://github.com/cemu-project/Cemu/commit/f48ad6a1ca13d1abebd2c3b1f789bbe10f6fff1a
+%global commit        f48ad6a1ca13d1abebd2c3b1f789bbe10f6fff1a
+%global commit_date   20230420
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -19,16 +19,15 @@
 
 %global rdns info.cemu.Cemu
 
-# Upstream prefers clang, but there may be an issue when compiled with clang 16.
-# F37 has clang 15. F38 has clang 16. <https://packages.fedoraproject.org/pkgs/clang/clang/>
-# So try using gcc on F38.
+# Use gcc on F38 due to issue with clang 16.
+# <https://github.com/jn64/Cemu-rpm/issues/13>
 %if 0%{?fedora} == 37
 %global toolchain clang
 %endif
 
 Name:           Cemu
 Version:        2.0^%{snapshot}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A Nintendo Wii U emulator
 License:        MPL-2.0
 URL:            https://cemu.info
@@ -88,7 +87,6 @@ BuildRequires:  sed
 
 # Workaround for missing glslangConfig.cmake file (1/2)
 # Only for F37 Copr build
-# Should not be necessary in F38 based on current rawhide build results
 # This breaks local builds. You can comment out this BR
 # and manually insert the file into the build chroot if using mock.
 %if 0%{?fedora} == 37
@@ -196,6 +194,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Thu Apr 20 2023 Justin Koh <j@ustink.org> - 2.0^20230420gitf48ad6a-1
+- Update to f48ad6a / 2.0-36 (Experimental)
+
 * Wed Apr 19 2023 Justin Koh <j@ustink.org> - 2.0^20230417gite3e167b-2
 - Use gcc on F38. See <https://github.com/jn64/Cemu-rpm/issues/13>
 
