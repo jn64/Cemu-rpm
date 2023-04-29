@@ -1,3 +1,18 @@
+# Build with clang by default (preferred by upstream). Use `--with toolchain_gcc` to build with gcc.
+%bcond_with toolchain_gcc
+
+# Use gcc on F38 due to issue with Cemu multi-core recompiler on clang 16 builds.
+# <https://github.com/cemu-project/Cemu/issues/781>
+%if 0%{?fedora} == 38
+%global with_toolchain_gcc 1
+%endif
+
+%if %{with toolchain_gcc}
+%global toolchain gcc
+%else
+%global toolchain clang
+%endif
+
 # https://github.com/cemu-project/Cemu/commit/f48ad6a1ca13d1abebd2c3b1f789bbe10f6fff1a
 %global commit        f48ad6a1ca13d1abebd2c3b1f789bbe10f6fff1a
 %global commit_date   20230420
@@ -19,12 +34,6 @@
 
 %global rdns info.cemu.Cemu
 
-# Use gcc on F38 due to issue with clang 16.
-# <https://github.com/jn64/Cemu-rpm/issues/13>
-%if 0%{?fedora} == 37
-%global toolchain clang
-%endif
-
 Name:           Cemu
 Version:        2.0^%{snapshot}
 Release:        1%{?dist}
@@ -45,10 +54,10 @@ Patch1:         0002-Disable-auto-update-checkboxes-and-menu-item.patch
 
 # Keep this section in sync with upstream build instructions
 # <https://github.com/cemu-project/Cemu/blob/1cf72265cd31a15a8c6afce140463dac9917b9fb/BUILD.md#for-fedora-and-derivatives>
-%if 0%{?fedora} == 37
-BuildRequires:  clang
-%else
+%if %{with toolchain_gcc}
 BuildRequires:  gcc gcc-c++
+%else
+BuildRequires:  clang
 %endif
 BuildRequires:  cmake >= 3.21.1
 BuildRequires:  cubeb-devel
