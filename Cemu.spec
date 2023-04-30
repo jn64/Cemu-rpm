@@ -13,6 +13,9 @@
 %global toolchain clang
 %endif
 
+# Build with Discord RPC support by default. Use `--without discord_rpc` to disable.
+%bcond_without discord_rpc
+
 # https://github.com/cemu-project/Cemu/commit/f48ad6a1ca13d1abebd2c3b1f789bbe10f6fff1a
 %global commit        f48ad6a1ca13d1abebd2c3b1f789bbe10f6fff1a
 %global commit_date   20230420
@@ -108,8 +111,10 @@ Provides:       cemu = %{version}-%{release}
 Provides:       bundled(ZArchive) = 0.1.2
 # 1.89.5 WIP
 Provides:       bundled(imgui) = 1.89.5~%{im_snapshot}
+%if %{with discord_rpc}
 # <https://github.com/discord/discord-rpc/commit/963aa9f3e5ce81a4682c6ca3d136cddda614db33>
 Provides:       bundled(discord-rpc) = 3.4.0^20200921git963aa9f
+%endif
 # ih264d from Android Open Source Project, modified by Cemu
 # <https://github.com/cemu-project/Cemu/tree/2c81d240a5b065d8cf4c555754c4bfeaf42c826c/dependencies/ih264d>
 Provides:       bundled(ih264d) = 0^20221207git2c81d24
@@ -133,6 +138,9 @@ mv dependencies/%{za_name}-%{za_commit} dependencies/%{za_name}
 
 # Remove unused bundled libs
 rm -rf dependencies/{DirectX_2010,Vulkan-Headers,cubeb,vcpkg,vcpkg_overlay_ports,vcpkg_overlay_ports_linux}
+%if %{without discord_rpc}
+rm -rf dependencies/discord-rpc
+%endif
 
 # Set Cemu version to the package snapshot version
 # CMake can't get the hash using git at build time
@@ -165,7 +173,11 @@ export glslang_DIR
 %cmake \
     -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
     -DENABLE_VCPKG:BOOL=OFF \
+%if %{without discord_rpc}
+    -DENABLE_DISCORD_RPC:BOOL=OFF \
+%else
     -DENABLE_DISCORD_RPC:BOOL=ON \
+%endif
     -DEXPERIMENTAL_VERSION:STRING=999999 \
     -DPORTABLE:BOOL=OFF \
     -DBUILD_SHARED_LIBS:BOOL=OFF
