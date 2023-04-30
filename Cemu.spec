@@ -60,14 +60,14 @@ BuildRequires:  gcc gcc-c++
 BuildRequires:  clang
 %endif
 BuildRequires:  cmake >= 3.21.1
-BuildRequires:  cubeb-devel
 #BuildRequires:  git
 BuildRequires:  kernel-headers
 BuildRequires:  nasm
 BuildRequires:  ninja-build
-BuildRequires:  perl-core
+BuildRequires:  perl
 # Only needed for vcpkg's wxWidgets <https://github.com/cemu-project/Cemu/issues/24>
 #BuildRequires:  systemd-devel
+BuildRequires:  cmake(cubeb)
 BuildRequires:  pkgconfig(glut)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(libgcrypt)
