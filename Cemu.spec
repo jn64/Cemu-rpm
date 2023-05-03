@@ -1,11 +1,9 @@
-# Build with clang by default (preferred by upstream). Use `--with toolchain_gcc` to build with gcc.
+# Build with clang by default (preferred by upstream).
+# Use `--with toolchain_gcc` to build with gcc.
 %bcond_with toolchain_gcc
-
-# Use gcc on F38 due to issue with Cemu multi-core recompiler on clang 16 builds.
+# Note: Copr builds will use gcc on F38 for now as
+# clang 16 builds crash with multi-core recompiler.
 # <https://github.com/cemu-project/Cemu/issues/781>
-%if 0%{?fedora} == 38
-%global with_toolchain_gcc 1
-%endif
 
 %if %{with toolchain_gcc}
 %global toolchain gcc
@@ -13,7 +11,8 @@
 %global toolchain clang
 %endif
 
-# Build with Discord RPC support by default. Use `--without discord_rpc` to disable.
+# Build with Discord RPC support by default.
+# Use `--without discord_rpc` to disable.
 %bcond_without discord_rpc
 
 # https://github.com/cemu-project/Cemu/commit/f48ad6a1ca13d1abebd2c3b1f789bbe10f6fff1a
