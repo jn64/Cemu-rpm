@@ -15,9 +15,9 @@
 # Use `--without discord_rpc` to disable.
 %bcond_without discord_rpc
 
-# https://github.com/cemu-project/Cemu/commit/f48ad6a1ca13d1abebd2c3b1f789bbe10f6fff1a
-%global commit        f48ad6a1ca13d1abebd2c3b1f789bbe10f6fff1a
-%global commit_date   20230420
+# https://github.com/cemu-project/Cemu/commit/d56bc807cf039749edf4c6ce2c027d442141ab78
+%global commit        d56bc807cf039749edf4c6ce2c027d442141ab78
+%global commit_date   20230426
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -166,7 +166,6 @@ export glslang_DIR
 %global optflags %{optflags} -fPIC
 %global build_ldflags %{build_ldflags} -pie
 
-
 # BUILD_SHARED_LIBS=OFF is to fix this error:
 #    At least one of these targets is not a STATIC_LIBRARY. Cyclic dependencies are allowed only among static libraries.
 %cmake \
@@ -214,6 +213,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Wed May 03 2023 Justin Koh <j@ustink.org> - 2.0^20230426gitd56bc80-1
+- Update to d56bc80
+- Add bconds for toolchain, discord
+
 * Thu Apr 20 2023 Justin Koh <j@ustink.org> - 2.0^20230420gitf48ad6a-1
 - Update to f48ad6a / 2.0-36 (Experimental)
 
