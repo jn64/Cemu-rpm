@@ -15,9 +15,9 @@
 # Use `--without discord_rpc` to disable.
 %bcond_without discord_rpc
 
-# https://github.com/cemu-project/Cemu/commit/b74ae21953c52b8dc7f4fb2b0d3168cc78f2feee
-%global commit        b74ae21953c52b8dc7f4fb2b0d3168cc78f2feee
-%global commit_date   20230510
+# https://github.com/cemu-project/Cemu/commit/1bcdb35e42b5b54b661ea8e3a48ef8950940a5ec
+%global commit        1bcdb35e42b5b54b661ea8e3a48ef8950940a5ec
+%global commit_date   20230511
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -213,6 +213,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Thu May 11 2023 Justin Koh <j@ustink.org> - 2.0^20230511git1bcdb35-1
+- Update to 1bcdb35 / 2.0-38 (Experimental) - adds GameMode support
+
 * Thu May 11 2023 Justin Koh <j@ustink.org> - 2.0^20230510gitb74ae21-1
 - Update to b74ae21 / 2.0-37 (Experimental)
 
