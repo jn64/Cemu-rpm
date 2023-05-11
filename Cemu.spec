@@ -15,8 +15,8 @@
 # Use `--without discord_rpc` to disable.
 %bcond_without discord_rpc
 
-# https://github.com/cemu-project/Cemu/commit/1bcdb35e42b5b54b661ea8e3a48ef8950940a5ec
-%global commit        1bcdb35e42b5b54b661ea8e3a48ef8950940a5ec
+# https://github.com/cemu-project/Cemu/commit/eda4cf4b241d56c5c16f6aa4d135b8a269676a76
+%global commit        eda4cf4b241d56c5c16f6aa4d135b8a269676a76
 %global commit_date   20230511
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
@@ -171,11 +171,13 @@ export glslang_DIR
 %cmake \
     -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
     -DENABLE_VCPKG:BOOL=OFF \
+    -DENABLE_WAYLAND:BOOL=ON \
 %if %{without discord_rpc}
     -DENABLE_DISCORD_RPC:BOOL=OFF \
 %else
     -DENABLE_DISCORD_RPC:BOOL=ON \
 %endif
+    -DENABLE_FERAL_GAMEMODE:BOOL=ON \
     -DEXPERIMENTAL_VERSION:STRING=999999 \
     -DPORTABLE:BOOL=OFF \
     -DBUILD_SHARED_LIBS:BOOL=OFF
@@ -213,6 +215,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Thu May 11 2023 Justin Koh <j@ustink.org> - 2.0^20230511giteda4cf4-1
+- Update to eda4cf4 / 2.0-39 (Experimental) - updated translations
+
 * Thu May 11 2023 Justin Koh <j@ustink.org> - 2.0^20230511git1bcdb35-1
 - Update to 1bcdb35 / 2.0-38 (Experimental) - adds GameMode support
 
