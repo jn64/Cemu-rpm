@@ -15,9 +15,9 @@
 # Use `--without discord_rpc` to disable.
 %bcond_without discord_rpc
 
-# https://github.com/cemu-project/Cemu/commit/eda4cf4b241d56c5c16f6aa4d135b8a269676a76
-%global commit        eda4cf4b241d56c5c16f6aa4d135b8a269676a76
-%global commit_date   20230511
+# https://github.com/cemu-project/Cemu/commit/4ae5b4f8b82f42a60350edfb7ca9e7c80f751126
+%global commit        4ae5b4f8b82f42a60350edfb7ca9e7c80f751126
+%global commit_date   20230528
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -215,6 +215,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Sun May 28 2023 Justin Koh <j@ustink.org> - 2.0^20230528git4ae5b4f-1
+- Update to 4ae5b4f - New logging system, Wayland viewporter
+
 * Thu May 11 2023 Justin Koh <j@ustink.org> - 2.0^20230511giteda4cf4-1
 - Update to eda4cf4 / 2.0-39 (Experimental) - updated translations
 
