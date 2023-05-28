@@ -38,7 +38,7 @@
 
 Name:           Cemu
 Version:        2.0^%{snapshot}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Nintendo Wii U emulator
 License:        MPL-2.0
 URL:            https://cemu.info
@@ -91,6 +91,9 @@ BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(RapidJSON)
 BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-scanner)
+BuildRequires:  pkgconfig(wayland-protocols)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -215,6 +218,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Sun May 28 2023 Justin Koh <j@ustink.org> - 2.0^20230528git4ae5b4f-2
+- Add BRs for wayland-{client,scanner,protocols}
+
 * Sun May 28 2023 Justin Koh <j@ustink.org> - 2.0^20230528git4ae5b4f-1
 - Update to 4ae5b4f - New logging system, Wayland viewporter
 
