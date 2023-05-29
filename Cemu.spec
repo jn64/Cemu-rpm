@@ -127,6 +127,8 @@ Provides:       bundled(discord-rpc) = 3.4.0^20200921git963aa9f
 # <https://github.com/cemu-project/Cemu/tree/2c81d240a5b065d8cf4c555754c4bfeaf42c826c/dependencies/ih264d>
 Provides:       bundled(ih264d) = 0^20221207git2c81d24
 
+Recommends:     gamemode
+
 %description
 Cemu is a cross-platform emulator for the Nintendo Wii U game console.
 It is able to run most Wii U games and homebrew in a playable state.
