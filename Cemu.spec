@@ -1,6 +1,6 @@
 # Build with clang by default (preferred by upstream)
 # Use `--with toolchain_gcc` to build with gcc
-%bcond_with toolchain_gcc
+%bcond toolchain_gcc 0
 # Note: Copr builds will use gcc on F38 for now as
 # clang 16 builds crash with multi-core recompiler.
 # <https://github.com/cemu-project/Cemu/issues/781>
@@ -13,15 +13,15 @@
 
 # Build with Discord RPC support by default
 # Use `--without discord_rpc` to disable
-%bcond_without discord_rpc
+%bcond discord_rpc 1
 
 # Build with Wayland support by default
 # Use `--without wayland` to disable
-%bcond_without wayland
+%bcond wayland 1
 
 # Build with GameMode support by default
 # Use `--without gamemode` to disable
-%bcond_without gamemode
+%bcond gamemode 1
 
 # https://github.com/cemu-project/Cemu/commit/4ae5b4f8b82f42a60350edfb7ca9e7c80f751126
 %global commit        4ae5b4f8b82f42a60350edfb7ca9e7c80f751126
