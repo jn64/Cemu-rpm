@@ -15,6 +15,10 @@
 # Use `--without discord_rpc` to disable.
 %bcond_without discord_rpc
 
+# Build with Wayland support by default.
+# Use `--without wayland` to disable.
+%bcond_without wayland
+
 # https://github.com/cemu-project/Cemu/commit/4ae5b4f8b82f42a60350edfb7ca9e7c80f751126
 %global commit        4ae5b4f8b82f42a60350edfb7ca9e7c80f751126
 %global commit_date   20230528
@@ -91,9 +95,11 @@ BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(RapidJSON)
 BuildRequires:  pkgconfig(sdl2)
+%if %{with wayland}
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(wayland-protocols)
+%endif
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -174,12 +180,8 @@ export glslang_DIR
 %cmake \
     -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
     -DENABLE_VCPKG:BOOL=OFF \
-    -DENABLE_WAYLAND:BOOL=ON \
-%if %{without discord_rpc}
-    -DENABLE_DISCORD_RPC:BOOL=OFF \
-%else
-    -DENABLE_DISCORD_RPC:BOOL=ON \
-%endif
+    -DENABLE_WAYLAND:BOOL=%{?with_wayland:ON}%{!?with_wayland:OFF} \
+    -DENABLE_DISCORD_RPC:BOOL=%{?with_discord_rpc:ON}%{!?with_discord_rpc:OFF} \
     -DENABLE_FERAL_GAMEMODE:BOOL=ON \
     -DEXPERIMENTAL_VERSION:STRING=999999 \
     -DPORTABLE:BOOL=OFF \
