@@ -1,5 +1,5 @@
-# Build with clang by default (preferred by upstream).
-# Use `--with toolchain_gcc` to build with gcc.
+# Build with clang by default (preferred by upstream)
+# Use `--with toolchain_gcc` to build with gcc
 %bcond_with toolchain_gcc
 # Note: Copr builds will use gcc on F38 for now as
 # clang 16 builds crash with multi-core recompiler.
@@ -11,13 +11,17 @@
 %global toolchain clang
 %endif
 
-# Build with Discord RPC support by default.
-# Use `--without discord_rpc` to disable.
+# Build with Discord RPC support by default
+# Use `--without discord_rpc` to disable
 %bcond_without discord_rpc
 
-# Build with Wayland support by default.
-# Use `--without wayland` to disable.
+# Build with Wayland support by default
+# Use `--without wayland` to disable
 %bcond_without wayland
+
+# Build with GameMode support by default
+# Use `--without gamemode` to disable
+%bcond_without gamemode
 
 # https://github.com/cemu-project/Cemu/commit/4ae5b4f8b82f42a60350edfb7ca9e7c80f751126
 %global commit        4ae5b4f8b82f42a60350edfb7ca9e7c80f751126
@@ -113,6 +117,10 @@ BuildRequires:  sed
 BuildRequires:  Cemu-glslang-cmake-workaround
 %endif
 
+%if %{with gamemode}
+Recommends:     gamemode
+%endif
+
 Provides:       cemu = %{version}-%{release}
 
 # Bundled libs (all not available in Fedora)
@@ -127,7 +135,6 @@ Provides:       bundled(discord-rpc) = 3.4.0^20200921git963aa9f
 # <https://github.com/cemu-project/Cemu/tree/2c81d240a5b065d8cf4c555754c4bfeaf42c826c/dependencies/ih264d>
 Provides:       bundled(ih264d) = 0^20221207git2c81d24
 
-Recommends:     gamemode
 
 %description
 Cemu is a cross-platform emulator for the Nintendo Wii U game console.
@@ -150,6 +157,9 @@ mv dependencies/%{za_name}-%{za_commit} dependencies/%{za_name}
 rm -rf dependencies/{DirectX_2010,Vulkan-Headers,cubeb,vcpkg,vcpkg_overlay_ports,vcpkg_overlay_ports_linux}
 %if %{without discord_rpc}
 rm -rf dependencies/discord-rpc
+%endif
+%if %{without gamemode}
+rm -rf dependencies/gamemode
 %endif
 
 # Set Cemu version to the package snapshot version
@@ -184,7 +194,7 @@ export glslang_DIR
     -DENABLE_VCPKG:BOOL=OFF \
     -DENABLE_WAYLAND:BOOL=%{?with_wayland:ON}%{!?with_wayland:OFF} \
     -DENABLE_DISCORD_RPC:BOOL=%{?with_discord_rpc:ON}%{!?with_discord_rpc:OFF} \
-    -DENABLE_FERAL_GAMEMODE:BOOL=ON \
+    -DENABLE_FERAL_GAMEMODE:BOOL=%{?with_gamemode:ON}%{!?with_gamemode:OFF} \
     -DEXPERIMENTAL_VERSION:STRING=999999 \
     -DPORTABLE:BOOL=OFF \
     -DBUILD_SHARED_LIBS:BOOL=OFF
