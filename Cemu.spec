@@ -23,9 +23,9 @@
 # Use `--without gamemode` to disable
 %bcond gamemode 1
 
-# https://github.com/cemu-project/Cemu/commit/4ae5b4f8b82f42a60350edfb7ca9e7c80f751126
-%global commit        4ae5b4f8b82f42a60350edfb7ca9e7c80f751126
-%global commit_date   20230528
+# https://github.com/cemu-project/Cemu/commit/633e5c0e05852f1c7762797027ff0247424a57bd
+%global commit        633e5c0e05852f1c7762797027ff0247424a57bd
+%global commit_date   20230615
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -46,7 +46,7 @@
 
 Name:           Cemu
 Version:        2.0^%{snapshot}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A Nintendo Wii U emulator
 License:        MPL-2.0
 URL:            https://cemu.info
@@ -232,6 +232,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Fri Jun 16 2023 Justin Koh <j@ustink.org> - 2.0^20230615git633e5c0-1
+- Update to 633e5c0 / 2.0-40 (Experimental)
+
 * Sun May 28 2023 Justin Koh <j@ustink.org> - 2.0^20230528git4ae5b4f-2
 - Add BRs for wayland-{client,scanner,protocols}
 
