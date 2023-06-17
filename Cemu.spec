@@ -23,9 +23,9 @@
 # Use `--without gamemode` to disable
 %bcond gamemode 1
 
-# https://github.com/cemu-project/Cemu/commit/633e5c0e05852f1c7762797027ff0247424a57bd
-%global commit        633e5c0e05852f1c7762797027ff0247424a57bd
-%global commit_date   20230615
+# https://github.com/cemu-project/Cemu/commit/fd3b5b7f279c801396b1d13c49e1eeb14380ae82
+%global commit        fd3b5b7f279c801396b1d13c49e1eeb14380ae82
+%global commit_date   20230617
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -232,6 +232,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Sat Jun 17 2023 Justin Koh <j@ustink.org> - 2.0^20230617gitfd3b5b7-1
+- Update to fd3b5b7 / 2.0-41 (Experimental)
+
 * Fri Jun 16 2023 Justin Koh <j@ustink.org> - 2.0^20230615git633e5c0-1
 - Update to 633e5c0 / 2.0-40 (Experimental)
 
