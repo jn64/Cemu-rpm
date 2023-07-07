@@ -24,8 +24,8 @@
 %bcond gamemode 1
 
 # https://github.com/cemu-project/Cemu/releases
-%global commit        9499870cc993f39d8c25f5e434a4d25d9a24b556
-%global commit_date   20230625
+%global commit        ea86c77088e49195dc20c3b5c5ad8f960389a7df
+%global commit_date   20230706
 %global short_commit  %(c=%{commit}; echo ${c:0:7})
 %global snapshot      %{commit_date}git%{short_commit}
 
@@ -232,6 +232,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdns}.metain
 %{_metainfodir}/%{rdns}.metainfo.xml
 
 %changelog
+* Fri Jul 07 2023 Justin Koh <j@ustink.org> - 2.0^20230706gitea86c77-1
+- Update to ea86c77 / 2.0-43 (Experimental)
+
 * Sun Jun 25 2023 Justin Koh <j@ustink.org> - 2.0^20230625git9499870-1
 - Update to 9499870 / 2.0-42 (Experimental)
 
